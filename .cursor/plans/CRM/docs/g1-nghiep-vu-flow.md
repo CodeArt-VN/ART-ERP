@@ -1,193 +1,242 @@
-# G1 Artifact — Tổng hợp nghiệp vụ + Đề xuất flow & chức năng
+# G1 Artifact — Nghiệp vụ + Flow & chức năng (rev.2)
 
 **Chương trình:** CRM Nhà hàng / Tiệc cưới (ART-ERP)  
 **Gate:** G1 — chờ anh **Confirm**  
-**PM:** Cloud agent · Nhánh: `AI/crm-wedding-g1-a303`  
-**Ngày:** 2026-07-23
+**Nhánh:** `AI/crm-wedding-g1-a303` · **Rev:** 2 (2026-07-23)  
+**Thay đổi rev.2:** Bổ sung theo góp ý anh + phản biện **GD Marketing / GD Bán hàng / Operator nhà hàng**.
 
-> Anh đọc xong → chat **`Confirm G1`** (hoặc ghi chỉnh) → em mới sang G2 (danh sách forms).
-
----
-
-## 1. Bối cảnh & mục tiêu
-
-Xây module CRM phục vụ **nhà hàng / sảnh tiệc cưới & sự kiện**, gắn vào ART-ERP sẵn có — không greenfield.
-
-**Mục tiêu kinh doanh:**
-
-- Không sót lead; phản hồi nhanh (AI hỗ trợ).
-- Không double-book sảnh/ngày/khung giờ.
-- Theo dõi đủ: báo giá → giữ chỗ → cọc → HĐ → BEO → ngày tiệc → quyết toán → nuôi dưỡng.
-- Tài liệu giao anh chỉ: Hướng dẫn dùng / Flow / Forms / Chức năng form / Test cases.
+> Anh đọc → chat **`Confirm G1`** (hoặc chỉnh) → em sang G2 (forms chi tiết).
 
 ---
 
-## 2. Đặc trưng ngành (vì CRM generic không đủ)
+## 0. Tóm tắt phản biện nội bộ (3 vai)
 
-| Đặc trưng | Hệ quả hệ thống |
-|-----------|-----------------|
-| Inventory = **ngày + sảnh + ca (trưa/tối)** | Calendar + soft/hard hold + chống trùng |
-| Giá theo mùa / T7–CN / lễ | Price book theo slot, không chỉ catalog món |
-| Chu kỳ bán dài (30–180 ngày) | Pipeline dài + follow-up D+n |
-| Nhiều stakeholder | Roles: cô dâu/chú rể/bố mẹ/planner |
-| Cọc theo đợt | Milestone payment, không one-shot |
-| BEO handoff Sales → Bếp/Banquet | Convert sang ops doc, kitchen ẩn giá |
-| Peak date khan hiếm | SLA phản hồi; AI first-touch; duyệt hold peak |
+| Vai | Kết luận chính |
+|-----|----------------|
+| **GD Marketing** | Pipeline đang nghiêng sales-ops; thiếu segment journey, campaign attribution, KPI CPL/CAC, nurture pre-sale |
+| **GD Bán hàng** | Thiếu sale team / quota / commission / price book / stage gate checklist — CRM chưa điều khiển hành vi bán |
+| **Operator** | BEO phải là **lệnh sản xuất**, không phải tóm tắt bán hàng; cọc tiến độ gắn release đặt tươi / lock D-7 |
+
+→ Rev.2 đưa các khối này vào **phạm vi chức năng MVP** (không để Phase 2 trừ khi anh cắt).
 
 ---
 
-## 3. As-is ART-ERP (đã khảo sát)
+## 1. Mục tiêu
 
-| Có sẵn | Ghi chú |
-|--------|---------|
-| `CRM_Lead`, `CRM_Opportunity` (`EventDate`, `NumberOfGuests`), `CRM_Contract`, `CRM_Attendance`, `CRM_Activity`, Contact | BE CRUD đủ |
-| FE: lead, campaign, attendance-booking, BP/customer, loyalty… | **Thiếu** UI Opportunity / Contract / Activity |
-| `SALE_Order` đã có `IDOpportunity`, `IDContract`, `NumberOfGuests` | Nối SO sau HĐ/cọc |
-| `SALE_Quotation` + Detail | Dùng cho báo giá có dòng menu/gói |
-| POS `pos-booking` dùng `CRM_Attendance` | Booking ngày tiệc |
-| APPROVAL / OSM / SyncJob / n8n / AutomationWebhook | Duyệt, nhắc, automation |
-| LLM product | **Chưa có** — AI Sales làm package riêng có guardrail |
-
-**Kết luận kỹ thuật đề xuất:** mở rộng `pages/CRM` + nối SALE/POS/BANK — không tạo module EVENT tách.
+- Không sót lead; phản hồi nhanh (AI hỗ trợ, AutoSend off mặc định).
+- Không double-book sảnh/ngày/ca; không “treo” ngày không cọc.
+- Quản được: team sale + quota + KPI; menu/package; quy trình & checklist theo segment; HĐ + lịch thanh toán; BEO ops-ready.
+- Docs giao anh: Hướng dẫn / Flow / Forms / Chức năng form / Test cases.
 
 ---
 
-## 4. Pipeline đề xuất (9 stage)
+## 2. Đặc trưng ngành
+
+| Đặc trưng | Hệ quả |
+|-----------|--------|
+| Inventory = ngày + sảnh + ca | Calendar + soft/hard hold + concurrency lock |
+| Giá mùa / peak / T7–CN | Price book + phụ thu bắt buộc trên quote |
+| Chu kỳ bán dài | Pipeline + checklist + SLA từng stage |
+| Nhiều stakeholder | Contact roles + segment journey |
+| Cọc theo tiến độ | Payment schedule gắn release Ops |
+| BEO = lệnh sản xuất | Chi tiết menu/allergen/timing/staff; kitchen ẩn giá bán |
+| Đa brand/outlet | Team + campaign + attribution theo brand/outlet |
+
+---
+
+## 3. As-is ART (rút gọn)
+
+Có: Lead, Opp (`EventDate`, Guests), Contract, Attendance, Activity, Contact, Campaign, Loyalty, SALE Quotation/Order, POS booking, APPROVAL/OSM/n8n.  
+Thiếu UI Opp/Contract/Activity; thiếu setup team/quota/price book event; thiếu payment schedule; BEO chưa có; LLM chưa có.
+
+**Chiến lược:** mở rộng CRM + SALE/POS/BANK/APPROVAL — không greenfield.
+
+---
+
+## 4. Pipeline + stage gate
 
 ```mermaid
 flowchart TD
   A[Inquiry] --> B[Tour_Tasting]
   B --> C[Quote]
   C --> D[Hold]
-  D --> E[Contract_Deposit]
-  E --> F[BEO]
+  D --> E[Contract_PaymentSchedule]
+  E --> F[BEO_OpsReady]
   F --> G[Event_Day]
   G --> H[Final_Invoice]
-  H --> I[Nurture]
-  D -->|expire| C
-  A -->|low_fit| I
+  H --> I[Nurture_Alumni]
+  D -->|expire_no_deposit| C
+  A -->|lost| N[Lost_Nurture]
+  C -->|lost| N
 ```
 
-| Stage | Mục đích | Điều kiện ra |
-|-------|----------|--------------|
-| Inquiry | Lead vào (web/Zalo/FB/hotline/nhập tay) | Đã phản hồi + thu ngày/pax/budget tối thiểu |
-| Tour / Tasting | Tham quan / nếm thử | Có lịch + kết quả |
-| Quote | Báo giá chính thức | Đã gửi + đang cân nhắc |
-| Hold | Soft giữ ngày+sảnh | Slot blocked trong X giờ |
-| Contract + Deposit | Ký HĐ + cọc min% | Hard book calendar |
-| BEO | Chốt vận hành | Ops approve (+ khách nếu cần) |
-| Event Day | Thực hiện tiệc | Close event + phát sinh |
-| Final Invoice | Quyết toán | Thu đủ + HĐ |
-| Nurture | NPS / referral / upsell | Tag post-event |
+| Stage | Exit criteria | Gate cứng (đề xuất) |
+|-------|---------------|---------------------|
+| Inquiry | Owner + segment + nguồn/campaign + next action | Không owner → không convert |
+| Tour/Tasting | Show/no-show + note + deadline quote | — |
+| Quote | Version + hiệu lực + package từ price book | Chiết khấu vượt quyền → Approval |
+| Hold | Deadline cọc + calendar soft block | Hết hạn → auto release |
+| Contract + TT | HĐ + **payment schedule** + cọc 1 đủ | Không cọc 1 → không Confirmed / hard book |
+| BEO | Ops-ready checklist đủ + **cọc 2** (nếu policy) | Lock D-7; thiếu mục → chặn lock |
+| Event Day | Run-of-show + extras ký on-site | — |
+| Final Invoice | Quyết toán extras + thu đủ | — |
+| Nurture | NPS/CSAT + loyalty/referral enroll | — |
 
 ---
 
-## 5. Đề xuất chức năng theo khối (chưa chi tiết field — field ở G2)
+## 5. Khối chức năng MVP (rev.2)
 
-### 5.1 Bán hàng & pipeline
+### 5.1 Setup tổ chức bán hàng (GD Sale yêu cầu)
 
-- Lead: CRUD, assign, convert → Opportunity, nguồn/campaign.
-- Opportunity: stage machine, EventDate, guests/bàn, sảnh quan tâm, lose reason.
-- Activity: call / Zalo / meeting gắn Lead/Opp.
-- Tour/Tasting booking: lịch, reminder, kết quả.
+| Chức năng | Mô tả |
+|-----------|--------|
+| **Sale team** | Branch/Venue → Team (Wedding/Corporate/Banquet) → Leader → AE; Primary Owner bắt buộc trên Lead/Opp |
+| **Phân lead** | Round-robin + rule ưu tiên (hot / paid / sảnh trống gần ngày) |
+| **Quota** | Tháng + quý: signed revenue, deposit collected (optional #event/sảnh) |
+| **Commission hook** | Recognize theo **collected** (cọc/tiến độ), không chỉ chữ ký HĐ |
+| **Quyền giá** | AE ≤x% / Leader ≤y% / trên nữa = Manager + lý do |
 
-### 5.2 Báo giá & giữ chỗ
+### 5.2 Items / Menu / Package / Price book
 
-- Quotation (qua SALE_Quotation): dòng menu/gói/phụ thu peak, PDF, version, approve nếu dưới sàn / vượt ngưỡng.
-- Hall calendar: trống/hold/booked theo ngày + ca.
-- Soft/Hard Hold: conflict check, auto-expire, concurrent lock.
+| Chức năng | Mô tả |
+|-----------|--------|
+| **Hall master** | Sảnh, capacity, ca, min spend |
+| **Package** | Theo sảnh × bàn/pax × buổi × ngày thường/peak |
+| **Menu set** | Set A/B/C + upgrade line; gắn WMS Item |
+| **Items bán lẻ** | Decor, AV, MC, rượu, overtime… |
+| **Peak / SC / VAT** | Hiện trên quote; cấm Excel ngoài hệ thống (policy) |
+| **Quote validity + version** | 7–14 ngày; version history |
 
-### 5.3 Hợp đồng & tiền
+### 5.3 KPI (Sale + Marketing)
 
-- Contract từ Quote; lịch cọc; gắn Incoming Payment.
-- Sinh SALE_Order (`IDContract` / `IDOpportunity` / guests).
-- Attendance gắn Opp/Contract (PartyDate, pax).
+**Sale (tuần):** conversion Inquiry→Tour→Quote→Hold→Contract; AOV; cycle time; deposit on-time %; forecast hygiene (next action + close date).  
 
-### 5.4 Vận hành ngày tiệc
+**Marketing:** CPL/CAC theo kênh-brand; MQL→SQL→Won; tour show-up; won by source; post-event NPS/CSAT; % lead có Campaign+Source.
 
-- BEO: menu, layout, timeline, AV; Ops approve; lock trước D-n; kitchen sheet **ẩn giá**.
-- Event day: pax thực tế, extras → phụ lục / final invoice.
-- Phase 2 đề xuất: floor plan kéo-thả (không MVP trừ khi anh bắt buộc).
+### 5.4 Segment / phân hạng + quy trình & chăm sóc
 
-### 5.5 AI Sales Assistant (có kiểm soát)
+| Segment (MVP tối thiểu) | Journey khác biệt |
+|-------------------------|-------------------|
+| Wedding | Tour + tasting; nurture D+n; anniversary |
+| Corporate / MICE | Báo giá nhanh; PO/MST; recurring |
+| Member / VIP loyalty | Ưu tiên assign; offer riêng; SLA ngắn hơn |
+| Other / Referral | Tag nguồn; referral reward sau event |
 
-| AI làm (đề xuất) | Bắt buộc người duyệt |
-|------------------|----------------------|
-| Draft reply &lt;60s | Quote dưới giá sàn |
-| Qualify / score | Peak date hold |
-| Đề xuất slot tour | Confidence thấp |
-| Draft quote từ price book | Deal lớn / chiết khấu cao |
-| Follow-up D+2/5/10 | Contract & payment terms |
-| Next-best-action | AutoSend mặc định **OFF** |
+- Rule phân loại: nguồn, budget, guests, member tier.  
+- Playbook chăm sóc **theo segment × stage** (nội dung/FAQ/offer/SLA).  
+- Lost mọi stage → lý do + nurture win-back.  
+- Campaign/Source **bắt buộc** trên Lead; attribution first+last touch đến Won.
 
-### 5.6 Master & cấu hình
+### 5.5 Checklist đầu việc từng giai đoạn (stage checklist)
 
-- Hall (sảnh, capacity, branch).
-- Package / price book (peak rules).
-- Roles: Sale, Sale Manager, Kitchen, Banquet, Accountant, Admin.
+**Inquiry:** phản hồi ≤15–30’; ngày/pax/budget/nguồn; owner; segment; hẹn Tour hoặc lý do.  
+**Tour:** confirm show; đúng sảnh + phương án; note preference; deadline quote; next action.  
+**Quote:** package đúng peak; gửi ≤24–48h; version+hiệu lực; follow-up 48h; objection.  
+**Hold:** ngày+sảnh+giá sơ bộ+SLA cọc; điều kiện văn bản; soft block; nhắc cọc; hết hạn release.  
+**Contract:** checklist pháp lý/giá; **lịch TT**; thu cọc 1 → Confirmed; handoff BEO draft.  
+**BEO:** đủ mục Ops-ready (mục 5.7); lock D-7.  
+**Event:** run-of-show; extras ký Captainsheet.  
+**Post:** CSAT/NPS; UGC; enroll nurture/loyalty.
+
+Hệ thống: checklist template theo **segment × stage**; % hoàn thành; tùy chọn **chặn nhảy stage** nếu thiếu mục bắt buộc (default: bật cho Hold/Contract/BEO).
+
+### 5.6 Hợp đồng + thanh toán theo tiến độ
+
+| Chức năng | Mô tả |
+|-----------|--------|
+| Contract từ Quote | Snapshot giá/package/điều khoản hủy-đổi ngày |
+| **Payment schedule** | Cọc 1 (giữ chỗ) → Cọc 2 (release production / trước D-7) → Balance (trước/sau event theo HĐ) |
+| Theo dõi thực thu | Gắn `BANK_IncomingPayment`; trạng thái từng milestone: Due / Paid / Overdue |
+| Cảnh báo | Nhắc trước hạn; overdue → soft escalate Sale+Manager |
+| Gate Ops | Thiếu cọc 1: không hard book. Thiếu cọc 2: **không BEO lock / không PO tươi** (trừ GM override có log) |
+| Phụ lục | Đổi ngày/menu sau chốt → phụ lục + chênh lệch TT |
+| SALE_Order | Sinh sau Confirmed; `IDContract` / `IDOpportunity` / guests |
+
+### 5.7 BEO — lệnh sản xuất (Operator)
+
+**Không chấp nhận BEO chung “menu, layout, AV”.** MVP BEO gồm nhóm:
+
+| Nhóm | Mục bắt buộc |
+|------|----------------|
+| Menu/Bếp | Course × bàn/zone; suất; dietary/allergen theo ghế/tên; tasting signed; change cut-off D-7 |
+| Beverage | Package, bar/ice/glassware, last call |
+| Floor | Table plan, layout function, decor/vendor + load-in window |
+| Timing | Setup / guest / fire time course / breakdown / room release |
+| AV | Mic, screen, cue speech, power |
+| Staffing | Captain, ratio waiter, chef lead, OT rule |
+| Kho | Shopping list từ BEO; substitution rule |
+| Thương mại Ops | Deposit status flag; portion/food cost nội bộ; **ẩn giá bán/margin khỏi Kitchen** |
+| Meta | Version, Sales owner, Ops owner, lock timestamp |
+
+**Mốc Ops:** D-30 tentative → D-14 Ops review → **D-7 LOCK + Kitchen nhận** → D-3 confirm → D-1 green/amber/red → Event Day log → D+1 close + extras → Invoice.
+
+### 5.8 AI Sales (giữ nguyên tinh thần)
+
+Draft reply/qualify/tour slot/draft quote từ price book/follow-up/NBA.  
+Duyệt người: dưới sàn, peak hold, confidence thấp, deal lớn, AutoSend **OFF**.
+
+### 5.9 Master & role
+
+Hall, Package/Price book, Segment, Checklist template, Sale team/Quota, Campaign.  
+Roles: Sale, Leader, Manager, Marketing, Kitchen, Banquet, Accountant, Admin, GM (override).
 
 ---
 
-## 6. Defaults đề xuất (anh Confirm hoặc chỉnh)
+## 6. Defaults (Confirm hoặc chỉnh)
 
-| # | Hạng mục | Default PM |
-|---|----------|------------|
-| 1 | Phạm vi sự kiện MVP | Cưới **+** công ty/sinh nhật (cùng pipeline, khác type) |
-| 2 | Soft hold hết hạn | **48 giờ** |
-| 3 | Cọc min → Hard book | **30%** giá trị HĐ |
-| 4 | AI lần đầu | **Chỉ draft** — Sale gửi tay (`AutoSend=off`) |
-| 5 | Kênh lead MVP | **Web form + nhập tay** (Zalo phase sau) |
-| 6 | Pilot go-live | **1 chi nhánh** |
-| 7 | Floor plan kéo-thả | **Phase 2** |
-| 8 | Lock BEO trước event | **D-7** |
-| 9 | Peak hold | Cần **Sale Manager** duyệt |
-| 10 | Production | Feature flag off đến G6 |
-
----
-
-## 7. RACI nhanh
-
-| Khối | Sale | AI | Ops | Finance | Anh (sponsor) |
-|------|------|----|-----|---------|---------------|
-| Lead / Inquiry | R | R draft | — | — | Confirm scope G1 |
-| Quote / Hold | R | C draft | C | A (dưới sàn) | Confirm G1–G2 |
-| Contract | R | — | — | A | UAT G5 |
-| BEO | C | — | R/A | — | Confirm forms G2 |
-| Go-live flag | — | — | — | — | **Lệnh G6** |
+| # | Hạng mục | Default |
+|---|----------|---------|
+| 1 | Loại sự kiện MVP | Wedding + Corporate (+ VIP member path) |
+| 2 | Soft hold | **48h** + bắt buộc SLA cọc |
+| 3 | Cọc 1 → Confirmed/hard book | **30%** |
+| 4 | Cọc 2 → BEO lock / PO tươi | **% còn lại tới 70% tổng** hoặc số cố định (anh chốt) trước D-7 |
+| 5 | Stage gate checklist | **Bật** chặn nhảy Hold/Contract/BEO nếu thiếu mục bắt buộc |
+| 6 | Commission | Theo **collected** |
+| 7 | AI | Draft only, AutoSend off |
+| 8 | Kênh lead | Web + nhập tay; Campaign+Source bắt buộc |
+| 9 | Floor plan kéo-thả UI | Phase 2 (MVP: upload PDF table plan) |
+| 10 | Attribution | First + last touch |
+| 11 | Pilot | 1 branch |
+| 12 | Feature flag prod | Off đến G6 |
 
 ---
 
-## 8. KPI đề xuất (theo dõi sau go-live)
+## 7. RACI
 
-- First reply median (AI on) &lt; 60s  
-- Inquiry → Tour → Quote → Contract conversion  
-- Zero confirmed double-book  
-- Hold expire rate  
-- % deal AI-drafted vs human-sent  
-- Deposit on-time %
-
----
-
-## 9. Phạm vi MVP vs Phase 2
-
-**MVP (sau G1–G5):** Pipeline FE Opp/Contract/Activity · Quote+Hold · Contract+cọc+SO · BEO cơ bản · AI draft+guardrail · docs 5 loại.
-
-**Phase 2:** Floor plan UI · Zalo OA sâu · AutoSend rộng · Guest seating nâng cao · Loyalty post-event sâu.
+| Khối | Sale | Leader | Mkt | Ops | Finance | Anh |
+|------|------|--------|-----|-----|---------|-----|
+| Team/Quota/KPI | C | R | C | — | C | Confirm G1 |
+| Price book | C | A discount | — | C F&B | A | Confirm |
+| Segment journey | C | C | R | — | — | Confirm |
+| Checklist stage | R | A | C | C | — | Confirm |
+| Payment schedule | C | C | — | C gate | R/A | Confirm |
+| BEO | C | — | — | R/A | — | Confirm |
+| Go-live | — | — | — | — | — | **Lệnh G6** |
 
 ---
 
-## 10. Xin Confirm G1
+## 8. MVP vs Phase 2
 
-Anh vui lòng trả lời một trong các dạng:
+**MVP:** §5.1–5.9 đủ; BEO ops-ready + payment schedule + team/quota/KPI + segment checklist + AI draft.  
+**Phase 2:** Floor plan drag-drop; Zalo OA sâu; AutoSend rộng; seating nâng cao; ROAS đầy đủ nếu chưa có cost campaign.
 
-1. **`Confirm G1`** — chấp nhận flow + chức năng + defaults mục 6.  
-2. **`Confirm G1` + chỉnh:** … (liệt kê thay đổi).  
-3. **`Reject G1`** + lý do — em sửa artifact rồi xin lại.
+---
 
-**Sau Confirm G1** em sẽ:
+## 9. Câu hỏi đóng còn lại (nếu anh Confirm kèm trả lời càng tốt)
 
-- Ghi `gates/G1.md`  
-- Soạn G2: danh sách forms + chức năng từng form + draft test cases  
-- Xin họp/confirm G2  
+1. Cọc 2 trước D-7: **% bao nhiêu** (hay số cố định theo sảnh)?  
+2. Stage gate checklist: **chặn cứng** nhảy stage hay chỉ cảnh báo? (Default: chặn Hold/Contract/BEO)  
+3. Commission: chắc chắn **collected** chứ không signed?  
+4. BEO owner ký Ops-ready: **Banquet Manager** hay Chef+Banquet đồng ký?  
+5. KPI board 90 ngày ưu tiên: **quota+deposit** hay thêm **CPL/CAC** ngay MVP?
 
-**Em không** làm prototype hay code BE cho đến khi có Confirm G1 + G2 + chốt prototype G3.
+---
+
+## 10. Xin Confirm G1 (rev.2)
+
+1. **`Confirm G1`** — chấp nhận flow + khối chức năng §5 + defaults §6.  
+2. **`Confirm G1` + chỉnh:** …  
+3. **`Reject G1`** + lý do.
+
+Sau Confirm → em soạn **G2** (danh sách forms + chức năng từng form + draft test cases) và xin Confirm G2.  
+**Không** prototype/code BE trước Confirm G1 + G2 + chốt G3.
