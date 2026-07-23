@@ -127,30 +127,30 @@ flowchart TD
 - Lost mọi stage → lý do + nurture win-back.  
 - Campaign/Source **bắt buộc** trên Lead; attribution first+last touch đến Won.
 
-### 5.5 Checklist đầu việc từng giai đoạn (stage checklist)
+### 5.5 Checklist đầu việc từng giai đoạn
 
-**Inquiry:** phản hồi ≤15–30’; ngày/pax/budget/nguồn; owner; segment; hẹn Tour hoặc lý do.  
-**Tour:** confirm show; đúng sảnh + phương án; note preference; deadline quote; next action.  
-**Quote:** package đúng peak; gửi ≤24–48h; version+hiệu lực; follow-up 48h; objection.  
-**Hold:** ngày+sảnh+giá sơ bộ+SLA cọc; điều kiện văn bản; soft block; nhắc cọc; hết hạn release.  
-**Contract:** checklist pháp lý/giá; **lịch TT**; thu cọc 1 → Confirmed; handoff BEO draft.  
-**BEO:** đủ mục Ops-ready (mục 5.7); lock D-7.  
-**Event:** run-of-show; extras ký Captainsheet.  
-**Post:** CSAT/NPS; UGC; enroll nurture/loyalty.
+Template checklist theo **segment × stage**. Mỗi mục có cờ **`IsRequired`**.
 
-Hệ thống: checklist template theo **segment × stage**; % hoàn thành; tùy chọn **chặn nhảy stage** nếu thiếu mục bắt buộc (default: bật cho Hold/Contract/BEO).
+- Mục **Required** thiếu → **không cho đổi stage** sang bước sau.
+- Mục optional: cảnh báo, không chặn.
+- % hoàn thành hiển thị trên Opp/Deal.
 
 ### 5.6 Hợp đồng + thanh toán theo tiến độ
 
 | Chức năng | Mô tả |
 |-----------|--------|
-| Contract từ Quote | Snapshot giá/package/điều khoản hủy-đổi ngày |
-| **Payment schedule** | Cọc 1 (giữ chỗ) → Cọc 2 (release production / trước D-7) → Balance (trước/sau event theo HĐ) |
-| Theo dõi thực thu | Gắn `BANK_IncomingPayment`; trạng thái từng milestone: Due / Paid / Overdue |
-| Cảnh báo | Nhắc trước hạn; overdue → soft escalate Sale+Manager |
-| Gate Ops | Thiếu cọc 1: không hard book. Thiếu cọc 2: **không BEO lock / không PO tươi** (trừ GM override có log) |
-| Phụ lục | Đổi ngày/menu sau chốt → phụ lục + chênh lệch TT |
-| SALE_Order | Sinh sau Confirmed; `IDContract` / `IDOpportunity` / guests |
+| Contract từ Quote | Snapshot giá/package/điều khoản |
+| **Payment schedule (config)** | Định nghĩa theo **quy trình sale**: số mốc, tên mốc, `IsRequired`, min **%** và/hoặc min **Amount**, due rule (vd trước Event D-n) |
+| Theo dõi thực thu | Gắn Incoming Payment; Due / Paid / Overdue |
+| Gate | Milestone Required chưa Paid → chặn hành động map (Confirmed / hard book / BEO lock / PO tươi) theo config |
+| Ký duyệt MVP | **Owner Status** (Sale/Ops owner ký trạng thái); Phase sau → **APPROVAL** đồng ký |
+| SALE_Order | Sau Confirmed |
+
+### 5.6b KPI linh động
+
+- Không hard-code 1 bộ KPI cố định trên UI.
+- Config: metric code, nguồn dữ liệu, công thức/filter, board/widget, role xem.
+- Seed mặc định (conversion, AOV, deposit on-time, CPL…) — anh/admin bật/tắt/sửa.
 
 ### 5.7 BEO — lệnh sản xuất (Operator)
 
@@ -182,21 +182,21 @@ Roles: Sale, Leader, Manager, Marketing, Kitchen, Banquet, Accountant, Admin, GM
 
 ---
 
-## 6. Defaults (Confirm hoặc chỉnh)
+## 6. Defaults — **ĐÃ CHỐT G1** (2026-07-23)
 
-| # | Hạng mục | Default |
-|---|----------|---------|
+| # | Hạng mục | Chốt |
+|---|----------|------|
 | 1 | Loại sự kiện MVP | Wedding + Corporate (+ VIP member path) |
-| 2 | Soft hold | **48h** + bắt buộc SLA cọc |
-| 3 | Cọc 1 → Confirmed/hard book | **30%** |
-| 4 | Cọc 2 → BEO lock / PO tươi | **% còn lại tới 70% tổng** hoặc số cố định (anh chốt) trước D-7 |
-| 5 | Stage gate checklist | **Bật** chặn nhảy Hold/Contract/BEO nếu thiếu mục bắt buộc |
-| 6 | Commission | Theo **collected** |
-| 7 | AI | Draft only, AutoSend off |
-| 8 | Kênh lead | Web + nhập tay; Campaign+Source bắt buộc |
-| 9 | Floor plan kéo-thả UI | Phase 2 (MVP: upload PDF table plan) |
-| 10 | Attribution | First + last touch |
-| 11 | Pilot | 1 branch |
+| 2 | Soft hold | **48h** + SLA cọc theo config quy trình |
+| 3 | **Cọc** | **Config theo quy trình sale:** `Required` Y/N; min **%** hoặc min **số tiền** (một trong hai / cả hai tùy rule) |
+| 4 | Cọc → gate Ops | Rule gắn milestone (config): thiếu milestone Required → không Confirmed / không BEO lock (theo map quy trình) |
+| 5 | **Checklist** | Mục **Required** = bắt buộc; thiếu → **chặn** tiến stage |
+| 6 | Commission | Tạm **collected** như đề xuất — chưa đổi |
+| 7 | **Ký / duyệt** | MVP: **Status Owner ký** trên chứng từ; **sau** tích hợp phân hệ **APPROVAL** đồng ký nhiều bên |
+| 8 | **KPI** | **Cấu hình linh động** (định nghĩa metric/formula/board theo config, không hard-code cố định) |
+| 9 | AI | Draft only, AutoSend off |
+| 10 | Kênh lead | Web + nhập tay; Campaign+Source bắt buộc |
+| 11 | Floor plan UI kéo-thả | Phase 2 (MVP: upload PDF) |
 | 12 | Feature flag prod | Off đến G6 |
 
 ---
@@ -232,11 +232,7 @@ Roles: Sale, Leader, Manager, Marketing, Kitchen, Banquet, Accountant, Admin, GM
 
 ---
 
-## 10. Xin Confirm G1 (rev.2)
+## 10. Trạng thái G1
 
-1. **`Confirm G1`** — chấp nhận flow + khối chức năng §5 + defaults §6.  
-2. **`Confirm G1` + chỉnh:** …  
-3. **`Reject G1`** + lý do.
-
-Sau Confirm → em soạn **G2** (danh sách forms + chức năng từng form + draft test cases) và xin Confirm G2.  
-**Không** prototype/code BE trước Confirm G1 + G2 + chốt G3.
+**CONFIRMED** 2026-07-23 — xem [../gates/G1.md](../gates/G1.md).  
+Tiếp theo: **G2** danh sách forms + chức năng.
