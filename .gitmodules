@@ -4,3 +4,9 @@
 [submodule "ART-ERP-BE"]
 	path = ART-ERP-BE
 	url = https://github.com/CodeArt-VN/ART-ERP-BE.git
+[submodule "ART-DMS"]
+	path = ART-DMS
+	url = https://github.com/CodeArt-VN/ART-DMS.git
+[submodule "Document"]
+	path = Document
+	url = https://github.com/CodeArt-VN/ART-ERP-FE-Documents.git
