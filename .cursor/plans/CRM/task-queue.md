@@ -1,14 +1,14 @@
 # Task queue — khớp cổng confirm với anh
 
 Plan: [plan.md](plan.md)  
-Trạng thái: **WAITING_G1**
+Trạng thái: **WAITING_SPONSOR_CONFIRM_G1**
 
 ```json
 {
   "program": "CRM-Wedding",
-  "branch": "feature/crm-wedding",
+  "branch": "AI/crm-wedding-g1-a303",
   "canonicalPlan": ".cursor/plans/CRM/plan.md",
-  "status": "WAITING_G1",
+  "status": "WAITING_SPONSOR_CONFIRM_G1",
   "rule": "Không sang gate sau khi chưa có Confirm sponsor trong gates/G#.md",
   "tasks": [
     {
@@ -16,15 +16,16 @@ Trạng thái: **WAITING_G1**
       "dependsOn": [],
       "agent": "BA+PM",
       "sponsorGate": "G1",
-      "status": "pending",
-      "dod": ["Artifact nghiệp vụ+flow gửi anh", "Xin họp/confirm", "gates/G1.md Confirm"]
+      "status": "waiting_confirm",
+      "artifact": ".cursor/plans/CRM/docs/g1-nghiep-vu-flow.md",
+      "dod": ["Artifact G1 gửi anh", "Xin Confirm G1", "gates/G1.md Confirm"]
     },
     {
       "id": "g2-forms",
       "dependsOn": ["g1-biz-flow"],
       "agent": "BA",
       "sponsorGate": "G2",
-      "status": "pending",
+      "status": "blocked",
       "dod": ["docs draft 03+04+05", "Xin confirm", "gates/G2.md Confirm"]
     },
     {
@@ -32,7 +33,7 @@ Trạng thái: **WAITING_G1**
       "dependsOn": ["g2-forms"],
       "agent": "DEV",
       "sponsorGate": "G3",
-      "status": "pending",
+      "status": "blocked",
       "dod": ["Prototype FE demo", "Anh chốt UI", "gates/G3.md Confirm"]
     },
     {
@@ -40,7 +41,7 @@ Trạng thái: **WAITING_G1**
       "dependsOn": ["g3-prototype"],
       "agent": "DEV+TEST",
       "sponsorGate": "G4",
-      "status": "pending",
+      "status": "blocked",
       "dod": ["BE+FE theo prototype", "Unit/API test TC pass", "gates/G4.md test summary"]
     },
     {
@@ -48,7 +49,7 @@ Trạng thái: **WAITING_G1**
       "dependsOn": ["g4-build-test"],
       "agent": "PM+BA+TEST",
       "sponsorGate": "G5",
-      "status": "pending",
+      "status": "blocked",
       "dod": ["UAT demo", "Anh UAT OK", "Hướng dẫn sử dụng + 5 docs", "gates/G5.md"]
     },
     {
@@ -56,7 +57,7 @@ Trạng thái: **WAITING_G1**
       "dependsOn": ["g5-uat-guide"],
       "agent": "ORCH",
       "sponsorGate": "G6",
-      "status": "pending",
+      "status": "blocked",
       "dod": ["Lệnh anh bật flag", "gates/G6.md"]
     }
   ]
