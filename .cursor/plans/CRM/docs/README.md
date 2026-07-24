@@ -13,5 +13,6 @@
 | [10-cham-diem-g33-baseline.md](10-cham-diem-g33-baseline.md) | G3.3 | Baseline chấm điểm (0/25 ≥7) |
 | [11-cham-diem-g33-pass.md](11-cham-diem-g33-pass.md) | G3.3 | Đã invalidate bởi luật sponsor G3.4 |
 | [12-phan-bien-g34-theo-feedback-sponsor.md](12-phan-bien-g34-theo-feedback-sponsor.md) | G3.4 | Luật + tổng hợp |
-| [13-phan-bien-tung-form-4-role-g34.md](13-phan-bien-tung-form-4-role-g34.md) | G3.4 | **Hiện hành** — phản biện từng form × 4 role + DoD sửa prototype |
+| [13-phan-bien-tung-form-4-role-g34.md](13-phan-bien-tung-form-4-role-g34.md) | G3.4 | Phản biện từng form × 4 role |
+| [14-mau-3-trang-ar-invoice-outlet.md](14-mau-3-trang-ar-invoice-outlet.md) | G3.4 | **Hiện hành** — chuẩn 3 trang mẫu theo ar-invoice/outlet |
 | `01-huong-dan-su-dung.md` | G5 | — |
