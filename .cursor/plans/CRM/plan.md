@@ -4,13 +4,13 @@ overview: "CRM nhà hàng/tiệc cưới: PM xin họp confirm từng bước (n
 todos:
   - id: g1-biz-flow
     content: "G1: Tổng hợp nghiệp vụ + đề xuất flow/chức năng → XIN HỌP → anh confirm"
-    status: pending
+    status: completed
   - id: g2-forms
     content: "G2: Danh sách forms + chức năng từng form → XIN HỌP → anh confirm"
-    status: pending
+    status: completed
   - id: g3-prototype
     content: "G3: Prototype FE (mock/UI) → DEMO → anh chốt"
-    status: pending
+    status: in_progress
   - id: g4-build-test
     content: "G4: Code BE + FE + unit/API test theo test cases (sau G3 chốt)"
     status: pending
@@ -31,8 +31,9 @@ isProject: false
 **Canonical:** [`.cursor/plans/CRM/plan.md`](plan.md)  
 **Queue:** [task-queue.md](task-queue.md) · **DOCS:** [docs/](docs/) · **Biên bản:** [gates/](gates/)
 
-**Trạng thái:** `WAITING_G1` — em chuẩn bị tổng hợp nghiệp vụ + đề xuất flow, rồi **xin họp** anh confirm.  
-**Reminders:** mirror tiến độ list `ART-CRM Wedding` — anh xem; em tự sync.
+**Trạng thái:** `WAITING_SPONSOR_CONFIRM_G3` (G1+G2 **CONFIRMED**)  
+**Demo G3:** [prototype/index.html](prototype/index.html) → anh chat **`Confirm G3`**.  
+**G2:** [docs/03-danh-sach-forms.md](docs/03-danh-sach-forms.md) · [gates/G2.md](gates/G2.md)
 
 ---
 
@@ -279,8 +280,6 @@ Blockers:
 
 # Việc tiếp theo ngay
 
-1. Em soạn **artifact G1** (tổng hợp nghiệp vụ + đề xuất flow/chức năng).  
-2. Em **xin họp / xin confirm G1** với anh.  
-3. Sau Confirm G1 → làm G2 → xin confirm → … theo bảng trên.
-
-Anh bảo **bắt đầu G1** (hoặc **execute**) → em soạn artifact và gửi lịch/xin confirm — **chưa** nhảy prototype hay code BE.
+1. G1+G2 **CONFIRMED**  
+2. **Xin Confirm G3** — mở [prototype/index.html](prototype/index.html)  
+3. Sau Confirm G3 → G4 code BE+FE + unit test
