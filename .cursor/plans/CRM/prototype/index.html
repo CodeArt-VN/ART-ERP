@@ -1,0 +1,400 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>CRM Wedding — Prototype G3 (mock)</title>
+  <style>
+    :root {
+      --bg: #f4f6f8;
+      --card: #fff;
+      --ink: #1a2332;
+      --muted: #5c6b7a;
+      --line: #e2e8f0;
+      --brand: #0d6e6e;
+      --brand-soft: #e6f4f4;
+      --warn: #b45309;
+      --danger: #b91c1c;
+      --ok: #15803d;
+      --stage: #334155;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0; font-family: "Segoe UI", "Be Vietnam Pro", system-ui, sans-serif;
+      background: linear-gradient(160deg, #e8f0f0 0%, var(--bg) 40%, #eef2f7 100%);
+      color: var(--ink); min-height: 100vh;
+    }
+    header.app {
+      background: var(--ink); color: #fff; padding: 12px 20px;
+      display: flex; align-items: center; gap: 16px; flex-wrap: wrap;
+    }
+    header.app h1 { font-size: 1rem; margin: 0; font-weight: 600; letter-spacing: .02em; }
+    header.app .badge {
+      background: var(--brand); font-size: .7rem; padding: 3px 8px; border-radius: 4px;
+    }
+    nav.tabs {
+      display: flex; gap: 4px; flex-wrap: wrap; padding: 12px 16px; background: #fff;
+      border-bottom: 1px solid var(--line); position: sticky; top: 0; z-index: 10;
+    }
+    nav.tabs button {
+      border: 1px solid var(--line); background: #fff; padding: 8px 12px; border-radius: 6px;
+      cursor: pointer; font-size: .8rem; color: var(--muted);
+    }
+    nav.tabs button.active { background: var(--brand); color: #fff; border-color: var(--brand); }
+    main { padding: 16px; max-width: 1100px; margin: 0 auto; }
+    .panel { display: none; }
+    .panel.active { display: block; }
+    .card {
+      background: var(--card); border: 1px solid var(--line); border-radius: 10px;
+      padding: 16px; margin-bottom: 14px; box-shadow: 0 1px 2px rgba(0,0,0,.04);
+    }
+    .card h2 { margin: 0 0 4px; font-size: 1.05rem; }
+    .card p.sub { margin: 0 0 12px; color: var(--muted); font-size: .85rem; }
+    table { width: 100%; border-collapse: collapse; font-size: .85rem; }
+    th, td { text-align: left; padding: 8px 10px; border-bottom: 1px solid var(--line); }
+    th { color: var(--muted); font-weight: 600; font-size: .75rem; text-transform: uppercase; }
+    tr:hover td { background: #f8fafc; }
+    .pill {
+      display: inline-block; padding: 2px 8px; border-radius: 999px; font-size: .72rem; font-weight: 600;
+    }
+    .pill.inquiry { background: #e0e7ff; color: #3730a3; }
+    .pill.quote { background: #fef3c7; color: #92400e; }
+    .pill.hold { background: #ffedd5; color: #9a3412; }
+    .pill.contract { background: #dcfce7; color: #166534; }
+    .pill.beo { background: #e0f2fe; color: #075985; }
+    .pill.free { background: #dcfce7; color: #166534; }
+    .pill.soft { background: #fef3c7; color: #92400e; }
+    .pill.hard { background: #fee2e2; color: #991b1b; }
+    .pill.booked { background: #e2e8f0; color: #334155; }
+    .grid2 { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+    @media (max-width: 720px) { .grid2 { grid-template-columns: 1fr; } }
+    label { display: block; font-size: .75rem; color: var(--muted); margin-bottom: 4px; }
+    input, select, textarea {
+      width: 100%; padding: 8px 10px; border: 1px solid var(--line); border-radius: 6px;
+      font: inherit; margin-bottom: 10px; background: #fff;
+    }
+    .actions { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 8px; }
+    .btn {
+      border: none; padding: 8px 14px; border-radius: 6px; cursor: pointer; font-size: .85rem; font-weight: 600;
+    }
+    .btn.primary { background: var(--brand); color: #fff; }
+    .btn.ghost { background: var(--brand-soft); color: var(--brand); }
+    .btn.danger { background: #fee2e2; color: var(--danger); }
+    .checklist label.row {
+      display: flex; align-items: flex-start; gap: 8px; font-size: .85rem; color: var(--ink);
+      margin-bottom: 8px; cursor: pointer;
+    }
+    .checklist .req { color: var(--danger); font-size: .7rem; font-weight: 700; margin-left: 4px; }
+    .cal {
+      display: grid; grid-template-columns: 100px repeat(7, 1fr); gap: 4px; font-size: .75rem;
+    }
+    .cal .h { font-weight: 600; color: var(--muted); padding: 6px; text-align: center; }
+    .cal .cell {
+      min-height: 56px; border: 1px solid var(--line); border-radius: 6px; padding: 4px;
+      background: #fff;
+    }
+    .cal .cell.soft { background: #fffbeb; }
+    .cal .cell.hard { background: #fef2f2; }
+    .cal .cell.booked { background: #f1f5f9; }
+    .toast {
+      position: fixed; bottom: 16px; right: 16px; background: var(--ink); color: #fff;
+      padding: 10px 14px; border-radius: 8px; font-size: .85rem; display: none; z-index: 50;
+    }
+    .banner {
+      background: var(--brand-soft); border: 1px solid #b6d9d9; color: #0a4f4f;
+      padding: 10px 14px; border-radius: 8px; font-size: .85rem; margin-bottom: 14px;
+    }
+    .pay-bar { height: 10px; background: #e2e8f0; border-radius: 99px; overflow: hidden; margin: 8px 0 4px; }
+    .pay-bar > i { display: block; height: 100%; background: var(--ok); width: 30%; }
+    .kanban { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; }
+    @media (max-width: 900px) { .kanban { grid-template-columns: 1fr 1fr; } }
+    .col { background: #f8fafc; border-radius: 8px; padding: 8px; border: 1px solid var(--line); }
+    .col h3 { margin: 0 0 8px; font-size: .8rem; color: var(--stage); }
+    .deal {
+      background: #fff; border: 1px solid var(--line); border-radius: 8px; padding: 10px;
+      margin-bottom: 8px; cursor: pointer;
+    }
+    .deal strong { display: block; font-size: .85rem; }
+    .deal small { color: var(--muted); }
+  </style>
+</head>
+<body>
+  <header class="app">
+    <h1>ART-ERP · CRM Wedding Prototype</h1>
+    <span class="badge">G3 MOCK — không gọi API</span>
+    <span style="opacity:.7;font-size:.8rem">Forms: opportunity · hall-calendar · event-hold · contract · contract-payment · beo · checklist</span>
+  </header>
+  <nav class="tabs" id="tabs"></nav>
+  <main>
+    <div class="banner">
+      Prototype G3 theo forms đã Confirm G2. Anh click các tab, thử checklist Required / cọc / calendar.
+      Chat <b>Confirm G3</b> khi UI/flow ổn để em sang G4 (code BE+FE thật).
+    </div>
+
+    <!-- PIPELINE -->
+    <section class="panel active" id="p-pipeline">
+      <div class="card">
+        <h2>opportunity — Pipeline Kanban (mock)</h2>
+        <p class="sub">Stage gate: checklist Required phải xong mới chuyển (demo nút bên dưới).</p>
+        <div class="kanban" id="kanban"></div>
+        <div class="actions">
+          <button class="btn primary" onclick="tryAdvance()">Thử chuyển stage → Quote</button>
+          <button class="btn ghost" onclick="showPanel('p-opp')">Mở opportunity detail</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- OPP DETAIL -->
+    <section class="panel" id="p-opp">
+      <div class="card">
+        <h2>opportunity / 1001 — Tiệc cưới Nguyễn & Trần</h2>
+        <p class="sub">Segment: Wedding · Owner: Sale A · Process: Wedding Standard · Stage: Tour</p>
+        <div class="grid2">
+          <div>
+            <label>EventDate</label><input value="2026-12-20" />
+            <label>Hall quan tâm</label><select><option>Diamond</option><option>Ruby</option></select>
+            <label>Guests / Bàn</label><input value="300 / 30" />
+            <label>Amount estimate</label><input value="450,000,000" />
+          </div>
+          <div class="checklist" id="chk">
+            <strong style="font-size:.85rem">Checklist stage Tour</strong>
+            <label class="row"><input type="checkbox" data-req="1" /> Xác nhận show-up<span class="req">Required</span></label>
+            <label class="row"><input type="checkbox" data-req="1" /> Ghi preference menu/style<span class="req">Required</span></label>
+            <label class="row"><input type="checkbox" /> Chụp ảnh moodboard (optional)</label>
+            <label class="row"><input type="checkbox" data-req="1" /> Chốt deadline báo giá<span class="req">Required</span></label>
+          </div>
+        </div>
+        <div class="actions">
+          <button class="btn primary" onclick="tryAdvance()">Save + Move stage</button>
+          <button class="btn ghost" onclick="showPanel('p-quote')">Tạo sale-quotation</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- QUOTE -->
+    <section class="panel" id="p-quote">
+      <div class="card">
+        <h2>sale-quotation — BG-2026-088</h2>
+        <p class="sub">Price book: Weekend peak +15% · ValidUntil: 2026-08-01 · Version 2</p>
+        <table>
+          <thead><tr><th>Hạng mục</th><th>SL</th><th>Đơn giá</th><th>Thành tiền</th></tr></thead>
+          <tbody>
+            <tr><td>Package Diamond Set A (cuối tuần)</td><td>30 bàn</td><td>12,000,000</td><td>360,000,000</td></tr>
+            <tr><td>Peak surcharge T7</td><td>1</td><td>54,000,000</td><td>54,000,000</td></tr>
+            <tr><td>Backdrop + LED</td><td>1</td><td>25,000,000</td><td>25,000,000</td></tr>
+            <tr><td colspan="3"><b>Tổng</b></td><td><b>439,000,000</b></td></tr>
+          </tbody>
+        </table>
+        <div class="actions">
+          <button class="btn ghost">Export PDF</button>
+          <button class="btn primary" onclick="showPanel('p-hold')">Convert → event-hold</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- CALENDAR + HOLD -->
+    <section class="panel" id="p-cal">
+      <div class="card">
+        <h2>hall-calendar — Sảnh Diamond · Tuần 15–21/12/2026</h2>
+        <p class="sub">Free / Soft hold / Hard / Booked</p>
+        <div class="cal" id="cal"></div>
+      </div>
+    </section>
+
+    <section class="panel" id="p-hold">
+      <div class="card">
+        <h2>event-hold — Soft Hold Diamond · 20/12 Trưa</h2>
+        <p class="sub">Expiry 48h · Conflict check mock</p>
+        <div class="grid2">
+          <div>
+            <label>Hall</label><input value="Diamond" readonly />
+            <label>Date / Slot</label><input value="2026-12-20 / Lunch" readonly />
+            <label>Expiry</label><input value="2026-07-26 13:00" />
+          </div>
+          <div>
+            <label>Hold type</label><select><option>Soft</option><option>Hard</option></select>
+            <p class="sub">Sale B thử hold cùng slot → <span style="color:var(--danger)">blocked</span> (TC-CRM-01)</p>
+          </div>
+        </div>
+        <div class="actions">
+          <button class="btn primary" onclick="toast('Hold saved (mock)')">Save Hold</button>
+          <button class="btn danger" onclick="toast('Hold released — slot Free')">Release</button>
+          <button class="btn ghost" onclick="showPanel('p-contract')">→ contract</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- CONTRACT + PAYMENT -->
+    <section class="panel" id="p-contract">
+      <div class="card">
+        <h2>contract — HĐ-TC-2026-012</h2>
+        <p class="sub">Owner Sign (MVP) · APPROVAL multi-sign = phase sau</p>
+        <div class="grid2">
+          <div>
+            <label>Khách</label><input value="Nguyễn Văn A & Trần Thị B" />
+            <label>Giá trị HĐ</label><input value="439,000,000" />
+            <label>Status</label><select><option>Draft</option><option selected>OwnerSigned</option><option>Confirmed</option></select>
+          </div>
+          <div>
+            <label>payment-rule áp dụng</label><input value="Wedding Standard — Cọc cấu hình" readonly />
+            <button class="btn primary" onclick="toast('Owner Signed (status)')">Owner Sign</button>
+            <button class="btn ghost" onclick="showPanel('p-pay')">Mở contract-payment</button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="panel" id="p-pay">
+      <div class="card">
+        <h2>contract-payment — Lịch TT / cọc</h2>
+        <p class="sub">Config: Milestone Required · Min % hoặc Min tiền · GateAction</p>
+        <table>
+          <thead><tr><th>Mốc</th><th>Required</th><th>Min</th><th>Due</th><th>Status</th><th>Gate</th></tr></thead>
+          <tbody>
+            <tr>
+              <td>Cọc giữ chỗ</td><td>Yes</td><td>30% hoặc 50tr</td><td>Hold+48h</td>
+              <td><span class="pill contract">Paid 131.7tr</span></td><td>Confirmed / HardBook</td>
+            </tr>
+            <tr>
+              <td>Cọc production</td><td>Yes</td><td>40%</td><td>D-7</td>
+              <td><span class="pill quote">Due</span></td><td>BEOLock / FreshPO</td>
+            </tr>
+            <tr>
+              <td>Balance</td><td>Yes</td><td>còn lại</td><td>D-1</td>
+              <td><span class="pill inquiry">Pending</span></td><td>Final</td>
+            </tr>
+          </tbody>
+        </table>
+        <div class="pay-bar"><i style="width:30%"></i></div>
+        <small style="color:var(--muted)">Đã thu ~30% · Thiếu cọc production → chặn BEO Lock (mock)</small>
+        <div class="actions">
+          <button class="btn ghost" onclick="toast('Record payment → IncomingPayment (mock)')">Ghi nhận thanh toán</button>
+          <button class="btn primary" onclick="showPanel('p-beo')">Mở beo</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- BEO -->
+    <section class="panel" id="p-beo">
+      <div class="card">
+        <h2>beo — BEO-2026-012 (Ops-ready sections)</h2>
+        <p class="sub">Kitchen ẩn giá bán · Lock D-7 · Owner Sign trước, APPROVAL sau</p>
+        <div class="grid2">
+          <div>
+            <label>Menu course × zone</label>
+            <textarea rows="3">VIP: Set A 5 course × 2 bàn&#10;Main: Set A × 28 bàn&#10;Kids: 20 suất</textarea>
+            <label>Dietary / Allergen</label>
+            <textarea rows="2">Bàn 5 ghế 3: chay · Bàn 12 ghế 1: dị ứng hải sản</textarea>
+            <label>Beverage package</label>
+            <input value="Beer + soft · Last call 22:00" />
+          </div>
+          <div>
+            <label>Timing setup / service / breakdown</label>
+            <textarea rows="3">14:00 load-in · 17:00 room ready · 18:00 guest · 18:30 first serve · 23:00 clear</textarea>
+            <label>Table plan (file)</label>
+            <input type="file" />
+            <label>AV / Staffing</label>
+            <input value="4 mic · Captain + 12 waiter · Chef lead" />
+            <p class="sub">Deposit flag: Cọc production <b style="color:var(--warn)">chưa Paid</b> → Lock bị chặn</p>
+          </div>
+        </div>
+        <div class="actions">
+          <button class="btn ghost" onclick="toast('Ops Owner Signed')">Owner Sign</button>
+          <button class="btn danger" onclick="toast('BLOCKED: milestone Required chưa Paid + allergen Required')">Thử Lock D-7</button>
+          <button class="btn primary" onclick="toast('Kitchen sheet preview (no sell price)')">Print kitchen</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- SETUP SNAPSHOT -->
+    <section class="panel" id="p-setup">
+      <div class="card">
+        <h2>Setup forms (snapshot)</h2>
+        <p class="sub">sale-team · sale-quota · event-hall · event-package · price-book · segment · sales-process · checklist-template · payment-rule · kpi-config</p>
+        <table>
+          <thead><tr><th>Mã form</th><th>Demo data</th></tr></thead>
+          <tbody>
+            <tr><td><code>sale-team</code></td><td>Team Wedding HN · Leader L01 · AE A,B</td></tr>
+            <tr><td><code>sales-process</code></td><td>Wedding Standard · HoldHours=48 · PaymentRule + ChecklistSet</td></tr>
+            <tr><td><code>payment-rule</code></td><td>3 mốc · Required + Min% / MinAmount</td></tr>
+            <tr><td><code>checklist-template</code></td><td>IsRequired per stage item</td></tr>
+            <tr><td><code>kpi-config</code></td><td>conversion, AOV, deposit-on-time — bật/tắt</td></tr>
+            <tr><td><code>event-hall</code></td><td>Diamond 40 bàn · Ruby 25 bàn</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+  </main>
+  <div class="toast" id="toast"></div>
+  <script>
+    const tabs = [
+      ['p-pipeline', 'Pipeline'],
+      ['p-opp', 'opportunity'],
+      ['p-quote', 'sale-quotation'],
+      ['p-cal', 'hall-calendar'],
+      ['p-hold', 'event-hold'],
+      ['p-contract', 'contract'],
+      ['p-pay', 'contract-payment'],
+      ['p-beo', 'beo'],
+      ['p-setup', 'Setup'],
+    ];
+    const nav = document.getElementById('tabs');
+    tabs.forEach(([id, label], i) => {
+      const b = document.createElement('button');
+      b.textContent = label;
+      if (i === 0) b.classList.add('active');
+      b.onclick = () => showPanel(id);
+      nav.appendChild(b);
+    });
+    function showPanel(id) {
+      document.querySelectorAll('.panel').forEach(p => p.classList.remove('active'));
+      document.getElementById(id).classList.add('active');
+      [...nav.children].forEach((b, i) => b.classList.toggle('active', tabs[i][0] === id));
+    }
+    function toast(msg) {
+      const t = document.getElementById('toast');
+      t.textContent = msg; t.style.display = 'block';
+      setTimeout(() => t.style.display = 'none', 2600);
+    }
+    function tryAdvance() {
+      const reqs = [...document.querySelectorAll('#chk input[data-req="1"]')];
+      const missing = reqs.filter(x => !x.checked).length;
+      if (missing) toast('BLOCKED: còn ' + missing + ' checklist Required (TC-CRM-06)');
+      else { toast('OK — chuyển stage → Quote'); showPanel('p-quote'); }
+    }
+    // kanban
+    const deals = {
+      Inquiry: [{ t: 'Lead FB — Minh', s: '200 pax · Ruby' }],
+      Tour: [{ t: 'Nguyễn & Trần', s: '300 pax · Diamond', open: true }],
+      Quote: [{ t: 'Công ty ABC', s: 'Year-end party' }],
+      Hold: [{ t: 'VIP Member', s: 'Soft · còn 12h' }],
+    };
+    const kb = document.getElementById('kanban');
+    Object.entries(deals).forEach(([col, list]) => {
+      const d = document.createElement('div'); d.className = 'col';
+      d.innerHTML = '<h3>' + col + '</h3>';
+      list.forEach(x => {
+        const el = document.createElement('div'); el.className = 'deal';
+        el.innerHTML = '<strong>' + x.t + '</strong><small>' + x.s + '</small>';
+        if (x.open) el.onclick = () => showPanel('p-opp');
+        d.appendChild(el);
+      });
+      kb.appendChild(d);
+    });
+    // calendar
+    const days = ['Mon','Tue','Wed','Thu','Fri','Sat','Sun'];
+    const slots = [
+      ['Lunch', ['free','free','soft','free','free','hard','booked']],
+      ['Dinner', ['free','free','free','soft','free','booked','hard']],
+    ];
+    const cal = document.getElementById('cal');
+    cal.innerHTML = '<div class="h"></div>' + days.map(d => '<div class="h">' + d + '</div>').join('');
+    slots.forEach(([name, cells]) => {
+      cal.innerHTML += '<div class="h">' + name + '</div>';
+      cells.forEach(c => {
+        cal.innerHTML += '<div class="cell ' + c + '"><span class="pill ' + c + '">' + c + '</span></div>';
+      });
+    });
+  </script>
+</body>
+</html>
