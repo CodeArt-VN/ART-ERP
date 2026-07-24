@@ -1,28 +1,21 @@
-# Task queue
-
-Plan: [plan.md](plan.md) · **WAITING_SPONSOR_CONFIRM_G2**
+# Task queue · WAITING_SPONSOR_CONFIRM_G3
 
 ```json
 {
   "program": "CRM-Wedding",
   "branch": "AI/crm-wedding-g1-a303",
-  "status": "WAITING_SPONSOR_CONFIRM_G2",
+  "status": "WAITING_SPONSOR_CONFIRM_G3",
   "tasks": [
-    { "id": "g1-biz-flow", "status": "done", "sponsorGate": "G1" },
+    { "id": "g1-biz-flow", "status": "done" },
+    { "id": "g2-forms", "status": "done" },
     {
-      "id": "g2-forms",
+      "id": "g3-prototype",
       "status": "waiting_confirm",
-      "sponsorGate": "G2",
-      "artifacts": [
-        ".cursor/plans/CRM/docs/03-danh-sach-forms.md",
-        ".cursor/plans/CRM/docs/04-chuc-nang-trong-form.md",
-        ".cursor/plans/CRM/docs/05-test-cases.md"
-      ]
+      "artifact": ".cursor/plans/CRM/prototype/index.html"
     },
-    { "id": "g3-prototype", "status": "blocked", "dependsOn": ["g2-forms"] },
     { "id": "g4-build-test", "status": "blocked", "dependsOn": ["g3-prototype"] },
-    { "id": "g5-uat-guide", "status": "blocked", "dependsOn": ["g4-build-test"] },
-    { "id": "g6-golive", "status": "blocked", "dependsOn": ["g5-uat-guide"] }
+    { "id": "g5-uat-guide", "status": "blocked" },
+    { "id": "g6-golive", "status": "blocked" }
   ]
 }
 ```

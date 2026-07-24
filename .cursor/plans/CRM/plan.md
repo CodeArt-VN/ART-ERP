@@ -7,10 +7,10 @@ todos:
     status: completed
   - id: g2-forms
     content: "G2: Danh sách forms + chức năng từng form → XIN HỌP → anh confirm"
-    status: in_progress
+    status: completed
   - id: g3-prototype
     content: "G3: Prototype FE (mock/UI) → DEMO → anh chốt"
-    status: pending
+    status: in_progress
   - id: g4-build-test
     content: "G4: Code BE + FE + unit/API test theo test cases (sau G3 chốt)"
     status: pending
@@ -31,10 +31,9 @@ isProject: false
 **Canonical:** [`.cursor/plans/CRM/plan.md`](plan.md)  
 **Queue:** [task-queue.md](task-queue.md) · **DOCS:** [docs/](docs/) · **Biên bản:** [gates/](gates/)
 
-**Trạng thái:** `WAITING_SPONSOR_CONFIRM_G2` (G1 **CONFIRMED**)  
-**G1:** [docs/g1-nghiep-vu-flow.md](docs/g1-nghiep-vu-flow.md) · [gates/G1.md](gates/G1.md)  
-**G2 artifacts:** [docs/03-danh-sach-forms.md](docs/03-danh-sach-forms.md) · [docs/04-chuc-nang-trong-form.md](docs/04-chuc-nang-trong-form.md) · [docs/05-test-cases.md](docs/05-test-cases.md)  
-→ Anh chat **`Confirm G2`**.
+**Trạng thái:** `WAITING_SPONSOR_CONFIRM_G3` (G1+G2 **CONFIRMED**)  
+**Demo G3:** [prototype/index.html](prototype/index.html) → anh chat **`Confirm G3`**.  
+**G2:** [docs/03-danh-sach-forms.md](docs/03-danh-sach-forms.md) · [gates/G2.md](gates/G2.md)
 
 ---
 
@@ -281,6 +280,6 @@ Blockers:
 
 # Việc tiếp theo ngay
 
-1. G1 **CONFIRMED** — [gates/G1.md](gates/G1.md)  
-2. **Xin Confirm G2** — forms + chức năng: [docs/03](docs/03-danh-sach-forms.md), [docs/04](docs/04-chuc-nang-trong-form.md)  
-3. Sau Confirm G2 → Prototype FE (G3)
+1. G1+G2 **CONFIRMED**  
+2. **Xin Confirm G3** — mở [prototype/index.html](prototype/index.html)  
+3. Sau Confirm G3 → G4 code BE+FE + unit test
