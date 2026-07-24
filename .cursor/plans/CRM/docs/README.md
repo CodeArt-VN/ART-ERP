@@ -11,5 +11,6 @@
 | [08-phan-bien-toan-bo-forms-g32.md](08-phan-bien-toan-bo-forms-g32.md) | G3.2 | Vòng 2 trước/đầu redesign — superseded |
 | [09-phan-bien-lai-toan-bo-forms.md](09-phan-bien-lai-toan-bo-forms.md) | G3.3 | Phản biện lại 25/25 forms sau G3.2 |
 | [10-cham-diem-g33-baseline.md](10-cham-diem-g33-baseline.md) | G3.3 | Baseline chấm điểm (0/25 ≥7) |
-| [11-cham-diem-g33-pass.md](11-cham-diem-g33-pass.md) | G3.3 | **Hiện hành** — 25/25 ≥7, đủ điều kiện demo |
+| [11-cham-diem-g33-pass.md](11-cham-diem-g33-pass.md) | G3.3 | Đã invalidate bởi luật sponsor G3.4 |
+| [12-phan-bien-g34-theo-feedback-sponsor.md](12-phan-bien-g34-theo-feedback-sponsor.md) | G3.4 | **Hiện hành** — 4 role + luật ART-ERP toàn forms |
 | `01-huong-dan-su-dung.md` | G5 | — |
