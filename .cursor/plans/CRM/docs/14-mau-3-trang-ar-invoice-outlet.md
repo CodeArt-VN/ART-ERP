@@ -59,7 +59,7 @@
 | Sale | 7 | 7 | Cột Name gom remark/source/next; status bar New→Converted; Convert trên toolbar. |
 | Mkt | 6 | 6 | Source/Segment nhìn được trên list. |
 | Ops | 2 | 1 | — |
-| UX | 7 | — | ART list pattern + bar; cards toggle phụ. |
+| UX | 8 | — | List ART + **detail outlet layout** (page-title · status bar · hr-group General/Personal/Convert/Other; bỏ segment). |
 **Verdict mẫu: OK-MVP.**
 
 ### Opportunity (Cơ hội)
@@ -92,8 +92,9 @@
 
 ```
 /#/sale-team
-/#/sale-team/1
+/#/sale-team/1          ← detail outlet (hr-group)
 /#/lead
+/#/lead/1               ← detail outlet (hr-group, giống sale-team)
 /#/opportunity          (toolbar: list | cards | kanban)
 /#/opportunity/1001
 ```
