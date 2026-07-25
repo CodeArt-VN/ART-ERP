@@ -14,5 +14,6 @@
 | [11-cham-diem-g33-pass.md](11-cham-diem-g33-pass.md) | G3.3 | Đã invalidate bởi luật sponsor G3.4 |
 | [12-phan-bien-g34-theo-feedback-sponsor.md](12-phan-bien-g34-theo-feedback-sponsor.md) | G3.4 | Luật + tổng hợp |
 | [13-phan-bien-tung-form-4-role-g34.md](13-phan-bien-tung-form-4-role-g34.md) | G3.4 | Phản biện từng form × 4 role |
-| [14-mau-3-trang-ar-invoice-outlet.md](14-mau-3-trang-ar-invoice-outlet.md) | G3.4 | **Hiện hành** — chuẩn 3 trang mẫu theo ar-invoice/outlet |
+| [14-mau-3-trang-ar-invoice-outlet.md](14-mau-3-trang-ar-invoice-outlet.md) | G3.4 | Chuẩn 3 trang mẫu theo ar-invoice/outlet |
+| [15-danh-gia-design-control-g34.md](15-danh-gia-design-control-g34.md) | G3.4 | **Hiện hành** — đánh giá design + quy tắc control (select đúng kiểu dữ liệu) toàn form |
 | `01-huong-dan-su-dung.md` | G5 | — |
