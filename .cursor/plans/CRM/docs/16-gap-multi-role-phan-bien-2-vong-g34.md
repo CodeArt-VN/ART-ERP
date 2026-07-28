@@ -114,6 +114,16 @@ Sau khi phản biện lại, các role chốt chỉ sửa **7 outcome nhìn th�
 
 ---
 
+## 6b. Option B follow-up (Lead/AI + cockpit + mapping)
+
+1. **AI inbox** restyle ART list; triage `New/Reviewed/Applied/Discarded`; action chính = **Apply signal to lead** (không phải fake approval product).
+2. **Lead** timeline có Apply/Open; list hiện Channel + Inbound count + event intent.
+3. **Opportunity cockpit** có Commercial path + blockers + deep-link Tour/Quote/Hold/Contract/Payment/BEO; giữ Channel từ lead.
+4. **Quote** create next version; Hold/Payment/BEO link ngược cockpit; BEO packet đủ bar/floor + gate BEOLock.
+5. **Doc 17** khung mapping BA/Architect old→new (Import/Transform/Drop), import sau UAT.
+
+---
+
 ## 6. Narrative demo đề xuất
 
 1. AI / Zalo / FB inquiry -> **Lead inbound**
