@@ -16,4 +16,5 @@
 | [13-phan-bien-tung-form-4-role-g34.md](13-phan-bien-tung-form-4-role-g34.md) | G3.4 | Phản biện từng form × 4 role |
 | [14-mau-3-trang-ar-invoice-outlet.md](14-mau-3-trang-ar-invoice-outlet.md) | G3.4 | Chuẩn 3 trang mẫu theo ar-invoice/outlet |
 | [15-danh-gia-design-control-g34.md](15-danh-gia-design-control-g34.md) | G3.4 | **Hiện hành** — đánh giá design + quy tắc control (select đúng kiểu dữ liệu) toàn form |
+| [16-gap-multi-role-phan-bien-2-vong-g34.md](16-gap-multi-role-phan-bien-2-vong-g34.md) | G3.4 | **Hiện hành** — phản biện 2 vòng với toàn bộ role + backlog sửa prototype |
 | `01-huong-dan-su-dung.md` | G5 | — |
