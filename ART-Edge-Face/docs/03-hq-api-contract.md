@@ -3,6 +3,9 @@
 Base: `{hq.api_base_url}`  
 Auth: `Authorization: Bearer {EDGE_FACE_API_KEY}`
 
+OpenAPI spec chuẩn cho team BE: [`05-be-openapi.yaml`](05-be-openapi.yaml)  
+Summary ngắn: [`06-be-openapi-summary.md`](06-be-openapi-summary.md)
+
 ## 1. Edge → BE API: ingestion event
 
 `POST /edge/face-events`

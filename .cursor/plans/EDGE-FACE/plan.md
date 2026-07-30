@@ -74,7 +74,11 @@ flowchart TD
 4. Scope **toàn chuỗi**, có **RBAC theo chi nhánh**
 5. Nếu **không nhận diện được**, Edge vẫn phải log để **manual mapping trên ERP theo branch**
 
-Tài liệu chốt hiện tại: `ART-Edge-Face/docs/03-hq-api-contract.md`
+Tài liệu chốt hiện tại:
+
+- `ART-Edge-Face/docs/03-hq-api-contract.md`
+- `ART-Edge-Face/docs/05-be-openapi.yaml`
+- `ART-Edge-Face/docs/06-be-openapi-summary.md`
 
 ---
 
@@ -83,7 +87,7 @@ Tài liệu chốt hiện tại: `ART-Edge-Face/docs/03-hq-api-contract.md`
 - Package `ART-Edge-Face` (pipeline, SQLite, HQ client, Windows Service)
 - `config.example.json`, install script, deploy checklist
 - Unit tests (config, ROI, gallery match, offline queue)
-- Docs architecture / flow / API contract draft
+- Docs architecture / flow / API contract + OpenAPI YAML
 
 ## 3. Chưa làm / đang chờ
 

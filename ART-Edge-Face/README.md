@@ -76,7 +76,11 @@ Env:
 
 Ngoài `known_match`, Edge còn phát `unknown_face` để BE/ERP manual mapping theo chi nhánh.
 
-BE API contract chi tiết: `docs/03-hq-api-contract.md`.
+BE API contract chi tiết:
+
+- `docs/03-hq-api-contract.md`
+- `docs/05-be-openapi.yaml`
+- `docs/06-be-openapi-summary.md`
 
 ## Layout
 

@@ -1,0 +1,776 @@
+openapi: 3.1.0
+info:
+  title: ART Edge Face BE API
+  version: 0.1.0
+  summary: BE API for edge face recognition, attendance, visitor mapping, and heatmap analytics.
+  description: |
+    OpenAPI spec cho domain Edge Face AI trong ART:
+    - Edge POS push raw recognition events về BE
+    - Edge pull gallery vectors từ BE theo branch RBAC
+    - ERP consume BE APIs cho attendance, VIP/familiar/stranger, unknown-face manual mapping
+    - BE aggregate zone counts / heatmap từ raw events hoặc aggregate uploads
+servers:
+  - url: https://erp.example.com/api/v1
+    description: Production
+  - url: https://staging-erp.example.com/api/v1
+    description: Staging
+tags:
+  - name: Edge Ingestion
+  - name: Edge Sync
+  - name: Attendance
+  - name: Visitors
+  - name: Face Gallery
+  - name: Zone Analytics
+security:
+  - bearerAuth: []
+paths:
+  /edge/face-events:
+    post:
+      tags: [Edge Ingestion]
+      summary: Ingest one face event from edge
+      description: Accept known and unknown face events emitted by edge POS service.
+      operationId: ingestFaceEvent
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/FaceEvent'
+            examples:
+              known:
+                value:
+                  branch_id: HN-001
+                  event_type: known_match
+                  user_id: EMP-001
+                  unknown_face_id: null
+                  timestamp: 1710000000.123
+                  score: 0.91
+                  camera_id: cam-entrance-01
+                  display_name: Nguyen Van A
+                  meta:
+                    det_score: 0.88
+                    bbox: { x1: 112, y1: 50, x2: 180, y2: 132, cx: 0.34, cy: 0.28 }
+                    frame_size: { width: 640, height: 480 }
+              unknown:
+                value:
+                  branch_id: HN-001
+                  event_type: unknown_face
+                  user_id: null
+                  unknown_face_id: UNK-7B8C9D0E11223344
+                  timestamp: 1710000000.123
+                  score: 0.0
+                  camera_id: cam-entrance-01
+                  display_name: null
+                  meta:
+                    det_score: 0.72
+                    bbox: { x1: 112, y1: 50, x2: 180, y2: 132, cx: 0.34, cy: 0.28 }
+                    frame_size: { width: 640, height: 480 }
+      responses:
+        '202':
+          description: Event accepted
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/IngestAccepted'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+  /edge/face-gallery:
+    get:
+      tags: [Edge Sync]
+      summary: Pull branch-scoped face gallery for edge
+      operationId: getFaceGallery
+      parameters:
+        - $ref: '#/components/parameters/BranchIdQuery'
+        - in: query
+          name: include_tags
+          schema:
+            type: boolean
+            default: true
+      responses:
+        '200':
+          description: Gallery payload
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/FaceGalleryResponse'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+  /edge/zone-analytics:
+    post:
+      tags: [Zone Analytics]
+      summary: Upload aggregated zone analytics from edge
+      description: Optional fast-path when edge aggregates occupancy locally.
+      operationId: ingestZoneAnalytics
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ZoneAnalyticsIngestRequest'
+      responses:
+        '202':
+          description: Aggregate accepted
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/IngestAccepted'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+  /erp/attendance-events:
+    get:
+      tags: [Attendance]
+      summary: Query attendance / check-in events
+      operationId: listAttendanceEvents
+      parameters:
+        - $ref: '#/components/parameters/BranchIdQuery'
+        - $ref: '#/components/parameters/FromQuery'
+        - $ref: '#/components/parameters/ToQuery'
+        - in: query
+          name: user_id
+          schema: { type: string }
+        - in: query
+          name: camera_id
+          schema: { type: string }
+        - $ref: '#/components/parameters/LimitQuery'
+        - $ref: '#/components/parameters/OffsetQuery'
+      responses:
+        '200':
+          description: Attendance event page
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AttendanceEventListResponse'
+  /erp/attendance/manual-confirm:
+    post:
+      tags: [Attendance]
+      summary: Confirm unknown face as employee attendance
+      operationId: manualConfirmAttendance
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AttendanceManualConfirmRequest'
+      responses:
+        '200':
+          description: Manual mapping created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ManualConfirmResponse'
+        '404':
+          $ref: '#/components/responses/NotFound'
+  /erp/visitor-events:
+    get:
+      tags: [Visitors]
+      summary: Query visitor recognition events
+      operationId: listVisitorEvents
+      parameters:
+        - $ref: '#/components/parameters/BranchIdQuery'
+        - $ref: '#/components/parameters/FromQuery'
+        - $ref: '#/components/parameters/ToQuery'
+        - in: query
+          name: class
+          schema:
+            type: string
+            enum: [vip, familiar, stranger, unknown_face]
+        - in: query
+          name: user_id
+          schema: { type: string }
+        - $ref: '#/components/parameters/LimitQuery'
+        - $ref: '#/components/parameters/OffsetQuery'
+      responses:
+        '200':
+          description: Visitor event page
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/VisitorEventListResponse'
+  /erp/visitor-mapping/manual-confirm:
+    post:
+      tags: [Visitors]
+      summary: Confirm unknown face as known customer/VIP/familiar
+      operationId: manualConfirmVisitor
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/VisitorManualConfirmRequest'
+      responses:
+        '200':
+          description: Visitor mapping applied
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ManualConfirmResponse'
+        '404':
+          $ref: '#/components/responses/NotFound'
+  /erp/face-gallery/upsert:
+    post:
+      tags: [Face Gallery]
+      summary: Upsert face vectors in central BE store
+      operationId: upsertFaceGalleryIdentity
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/FaceGalleryUpsertRequest'
+      responses:
+        '200':
+          description: Identity upserted
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/FaceGalleryUpsertResponse'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+  /erp/face-gallery/{user_id}:
+    delete:
+      tags: [Face Gallery]
+      summary: Disable one identity vector entry
+      operationId: deleteFaceGalleryIdentity
+      parameters:
+        - in: path
+          name: user_id
+          required: true
+          schema: { type: string }
+        - in: query
+          name: branch_id
+          required: false
+          schema: { type: string }
+      responses:
+        '200':
+          description: Identity disabled
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GenericOk'
+        '404':
+          $ref: '#/components/responses/NotFound'
+  /erp/zone-heatmap:
+    get:
+      tags: [Zone Analytics]
+      summary: Query heatmap cells
+      operationId: getZoneHeatmap
+      parameters:
+        - $ref: '#/components/parameters/BranchIdQuery'
+        - $ref: '#/components/parameters/FromQuery'
+        - $ref: '#/components/parameters/ToQuery'
+        - in: query
+          name: camera_id
+          required: false
+          schema: { type: string }
+        - in: query
+          name: resolution
+          required: false
+          schema:
+            type: integer
+            minimum: 4
+            maximum: 64
+            default: 16
+      responses:
+        '200':
+          description: Heatmap payload
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HeatmapResponse'
+  /erp/zone-counts:
+    get:
+      tags: [Zone Analytics]
+      summary: Query people counts by zone and time bucket
+      operationId: getZoneCounts
+      parameters:
+        - $ref: '#/components/parameters/BranchIdQuery'
+        - $ref: '#/components/parameters/FromQuery'
+        - $ref: '#/components/parameters/ToQuery'
+        - in: query
+          name: zone_id
+          required: false
+          schema: { type: string }
+        - in: query
+          name: camera_id
+          required: false
+          schema: { type: string }
+        - in: query
+          name: bucket
+          required: false
+          schema:
+            type: string
+            enum: [minute, hour, day]
+            default: hour
+      responses:
+        '200':
+          description: Zone count series
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ZoneCountResponse'
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+  parameters:
+    BranchIdQuery:
+      in: query
+      name: branch_id
+      required: true
+      schema:
+        type: string
+      description: Requested branch, validated against caller RBAC.
+    FromQuery:
+      in: query
+      name: from
+      required: true
+      schema:
+        type: string
+        format: date-time
+    ToQuery:
+      in: query
+      name: to
+      required: true
+      schema:
+        type: string
+        format: date-time
+    LimitQuery:
+      in: query
+      name: limit
+      required: false
+      schema:
+        type: integer
+        minimum: 1
+        maximum: 500
+        default: 50
+    OffsetQuery:
+      in: query
+      name: offset
+      required: false
+      schema:
+        type: integer
+        minimum: 0
+        default: 0
+  responses:
+    BadRequest:
+      description: Invalid input
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+    Unauthorized:
+      description: Missing or invalid bearer token
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+    Forbidden:
+      description: Caller has no access to requested branch
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+    NotFound:
+      description: Requested resource not found
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+  schemas:
+    FaceEvent:
+      type: object
+      additionalProperties: false
+      required:
+        - branch_id
+        - event_type
+        - timestamp
+        - score
+        - camera_id
+        - meta
+      properties:
+        branch_id:
+          type: string
+        event_type:
+          type: string
+          enum: [known_match, unknown_face]
+        user_id:
+          type: [string, 'null']
+        unknown_face_id:
+          type: [string, 'null']
+        timestamp:
+          type: number
+          format: double
+          description: Unix epoch seconds with milliseconds.
+        score:
+          type: number
+          format: float
+          minimum: 0
+          maximum: 1
+        camera_id:
+          type: string
+        display_name:
+          type: [string, 'null']
+        meta:
+          $ref: '#/components/schemas/FaceEventMeta'
+      allOf:
+        - if:
+            properties:
+              event_type: { const: known_match }
+          then:
+            required: [user_id]
+        - if:
+            properties:
+              event_type: { const: unknown_face }
+          then:
+            required: [unknown_face_id]
+    FaceEventMeta:
+      type: object
+      additionalProperties: true
+      required: [det_score, bbox, frame_size]
+      properties:
+        det_score:
+          type: number
+          format: float
+          minimum: 0
+          maximum: 1
+        bbox:
+          $ref: '#/components/schemas/BoundingBox'
+        frame_size:
+          $ref: '#/components/schemas/FrameSize'
+        zone_id:
+          type: [string, 'null']
+        tags:
+          type: array
+          items: { type: string }
+    BoundingBox:
+      type: object
+      additionalProperties: false
+      required: [x1, y1, x2, y2, cx, cy]
+      properties:
+        x1: { type: integer, minimum: 0 }
+        y1: { type: integer, minimum: 0 }
+        x2: { type: integer, minimum: 0 }
+        y2: { type: integer, minimum: 0 }
+        cx: { type: number, minimum: 0, maximum: 1 }
+        cy: { type: number, minimum: 0, maximum: 1 }
+    FrameSize:
+      type: object
+      additionalProperties: false
+      required: [width, height]
+      properties:
+        width: { type: integer, minimum: 1 }
+        height: { type: integer, minimum: 1 }
+    IngestAccepted:
+      type: object
+      required: [accepted, event_ref]
+      properties:
+        accepted:
+          type: boolean
+          const: true
+        event_ref:
+          type: string
+        deduped:
+          type: boolean
+        received_at:
+          type: string
+          format: date-time
+    FaceGalleryResponse:
+      type: object
+      required: [branch_id, version, identities]
+      properties:
+        branch_id:
+          type: string
+        version:
+          type: string
+        identities:
+          type: array
+          items:
+            $ref: '#/components/schemas/FaceGalleryIdentity'
+    FaceGalleryIdentity:
+      type: object
+      required:
+        - user_id
+        - display_name
+        - embedding
+        - embedding_dim
+        - class
+        - active
+      properties:
+        user_id:
+          type: string
+        display_name:
+          type: string
+        embedding:
+          type: array
+          items:
+            type: number
+            format: float
+        embedding_dim:
+          type: integer
+          enum: [128, 512]
+        class:
+          type: string
+          enum: [employee, vip, familiar]
+        tags:
+          type: array
+          items: { type: string }
+        allowed_branches:
+          type: array
+          items: { type: string }
+        active:
+          type: boolean
+        updated_at:
+          type: string
+          format: date-time
+    AttendanceEventListResponse:
+      type: object
+      required: [items, total, limit, offset]
+      properties:
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/AttendanceEvent'
+        total: { type: integer, minimum: 0 }
+        limit: { type: integer, minimum: 1 }
+        offset: { type: integer, minimum: 0 }
+    AttendanceEvent:
+      type: object
+      required:
+        - event_ref
+        - branch_id
+        - user_id
+        - camera_id
+        - occurred_at
+        - score
+        - source
+      properties:
+        event_ref: { type: string }
+        branch_id: { type: string }
+        user_id: { type: string }
+        employee_code: { type: [string, 'null'] }
+        display_name: { type: [string, 'null'] }
+        camera_id: { type: string }
+        occurred_at:
+          type: string
+          format: date-time
+        score:
+          type: number
+          minimum: 0
+          maximum: 1
+        source:
+          type: string
+          enum: [auto_match, manual_confirm]
+        meta:
+          $ref: '#/components/schemas/FaceEventMeta'
+    AttendanceManualConfirmRequest:
+      type: object
+      required: [branch_id, unknown_face_id, employee_user_id, confirmed_by]
+      properties:
+        branch_id: { type: string }
+        unknown_face_id: { type: string }
+        employee_user_id: { type: string }
+        confirmed_by: { type: string }
+        note: { type: [string, 'null'] }
+        create_gallery_identity:
+          type: boolean
+          default: false
+    VisitorEventListResponse:
+      type: object
+      required: [items, total, limit, offset]
+      properties:
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/VisitorEvent'
+        total: { type: integer, minimum: 0 }
+        limit: { type: integer, minimum: 1 }
+        offset: { type: integer, minimum: 0 }
+    VisitorEvent:
+      type: object
+      required:
+        - event_ref
+        - branch_id
+        - class
+        - camera_id
+        - occurred_at
+      properties:
+        event_ref: { type: string }
+        branch_id: { type: string }
+        class:
+          type: string
+          enum: [vip, familiar, stranger, unknown_face]
+        user_id: { type: [string, 'null'] }
+        unknown_face_id: { type: [string, 'null'] }
+        display_name: { type: [string, 'null'] }
+        camera_id: { type: string }
+        occurred_at:
+          type: string
+          format: date-time
+        score:
+          type: number
+          minimum: 0
+          maximum: 1
+        meta:
+          $ref: '#/components/schemas/FaceEventMeta'
+    VisitorManualConfirmRequest:
+      type: object
+      required:
+        - branch_id
+        - unknown_face_id
+        - target_user_id
+        - target_class
+        - confirmed_by
+      properties:
+        branch_id: { type: string }
+        unknown_face_id: { type: string }
+        target_user_id: { type: string }
+        target_class:
+          type: string
+          enum: [vip, familiar, stranger]
+        confirmed_by: { type: string }
+        note: { type: [string, 'null'] }
+        create_gallery_identity:
+          type: boolean
+          default: false
+    ManualConfirmResponse:
+      type: object
+      required: [ok, mapping_ref, event_ref]
+      properties:
+        ok: { type: boolean, const: true }
+        mapping_ref: { type: string }
+        event_ref: { type: string }
+        updated_class: { type: [string, 'null'] }
+        updated_user_id: { type: [string, 'null'] }
+    FaceGalleryUpsertRequest:
+      type: object
+      required:
+        - user_id
+        - display_name
+        - embedding
+        - embedding_dim
+        - class
+        - allowed_branches
+      properties:
+        user_id: { type: string }
+        display_name: { type: string }
+        embedding:
+          type: array
+          items: { type: number, format: float }
+        embedding_dim:
+          type: integer
+          enum: [128, 512]
+        class:
+          type: string
+          enum: [employee, vip, familiar]
+        tags:
+          type: array
+          items: { type: string }
+        allowed_branches:
+          type: array
+          minItems: 1
+          items: { type: string }
+        active:
+          type: boolean
+          default: true
+    FaceGalleryUpsertResponse:
+      type: object
+      required: [ok, user_id, version]
+      properties:
+        ok: { type: boolean, const: true }
+        user_id: { type: string }
+        version: { type: string }
+        updated_at:
+          type: string
+          format: date-time
+    ZoneAnalyticsIngestRequest:
+      type: object
+      required: [branch_id, camera_id, bucket_start, bucket_end, zone_counts]
+      properties:
+        branch_id: { type: string }
+        camera_id: { type: string }
+        bucket_start:
+          type: string
+          format: date-time
+        bucket_end:
+          type: string
+          format: date-time
+        zone_counts:
+          type: array
+          items:
+            $ref: '#/components/schemas/ZoneCountRecord'
+    ZoneCountResponse:
+      type: object
+      required: [items]
+      properties:
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/ZoneCountRecord'
+    ZoneCountRecord:
+      type: object
+      required: [zone_id, bucket_start, bucket_end, count]
+      properties:
+        zone_id: { type: string }
+        camera_id: { type: [string, 'null'] }
+        bucket_start:
+          type: string
+          format: date-time
+        bucket_end:
+          type: string
+          format: date-time
+        count:
+          type: integer
+          minimum: 0
+    HeatmapResponse:
+      type: object
+      required: [branch_id, from, to, cells]
+      properties:
+        branch_id: { type: string }
+        camera_id: { type: [string, 'null'] }
+        from:
+          type: string
+          format: date-time
+        to:
+          type: string
+          format: date-time
+        cells:
+          type: array
+          items:
+            $ref: '#/components/schemas/HeatmapCell'
+    HeatmapCell:
+      type: object
+      required: [x, y, intensity]
+      properties:
+        x:
+          type: integer
+          minimum: 0
+        y:
+          type: integer
+          minimum: 0
+        intensity:
+          type: number
+          minimum: 0
+    GenericOk:
+      type: object
+      required: [ok]
+      properties:
+        ok: { type: boolean, const: true }
+    ErrorResponse:
+      type: object
+      required: [error_code, message]
+      properties:
+        error_code: { type: string }
+        message: { type: string }
+        details:
+          oneOf:
+            - type: object
+            - type: array
+            - type: string
