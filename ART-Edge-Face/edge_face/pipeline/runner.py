@@ -6,6 +6,7 @@ import logging
 import signal
 import threading
 import time
+from hashlib import sha1
 from pathlib import Path
 
 from edge_face.config import AppConfig, resolve_path
@@ -99,6 +100,26 @@ class EdgePipeline:
         log.info("Stop signal received")
         self.stop()
 
+    def _unknown_face_id(self, camera_id: str, embedding, captured_at: float) -> str:
+        rounded = ",".join(f"{v:.3f}" for v in embedding[:16])
+        raw = f"{self.config.branch_id}|{camera_id}|{int(captured_at)}|{rounded}"
+        return "UNK-" + sha1(raw.encode("utf-8")).hexdigest()[:16].upper()
+
+    def _bbox_meta(self, box, frame_bgr) -> dict:
+        h, w = frame_bgr.shape[:2]
+        return {
+            "det_score": box.score,
+            "bbox": {
+                "x1": box.x1,
+                "y1": box.y1,
+                "x2": box.x2,
+                "y2": box.y2,
+                "cx": round((box.x1 + box.x2) / 2 / w, 4),
+                "cy": round((box.y1 + box.y2) / 2 / h, 4),
+            },
+            "frame_size": {"width": w, "height": h},
+        }
+
     def process_frame(self, camera_id: str, frame_bgr, captured_at: float) -> int:
         assert self._detector is not None and self._embedder is not None
         faces = self._detector.detect(frame_bgr)
@@ -114,6 +135,33 @@ class EdgePipeline:
                 top_k=self.config.matching.top_k,
             )
             if match is None:
+                unknown_face_id = self._unknown_face_id(camera_id, emb, captured_at)
+                if not self._store.should_emit(
+                    camera_id,
+                    unknown_face_id,
+                    captured_at,
+                    self.config.dedupe_window_seconds,
+                ):
+                    continue
+                event = FaceEvent(
+                    branch_id=self.config.branch_id,
+                    event_type="unknown_face",
+                    user_id=None,
+                    unknown_face_id=unknown_face_id,
+                    timestamp=captured_at,
+                    score=0.0,
+                    camera_id=camera_id,
+                    display_name=None,
+                    meta=self._bbox_meta(box, frame_bgr),
+                )
+                self._sync.publish(event)
+                emitted += 1
+                log.info(
+                    "UNKNOWN branch=%s unknown_face_id=%s cam=%s",
+                    self.config.branch_id,
+                    unknown_face_id,
+                    camera_id,
+                )
                 continue
             if not self._store.should_emit(
                 camera_id,
@@ -124,12 +172,14 @@ class EdgePipeline:
                 continue
             event = FaceEvent(
                 branch_id=self.config.branch_id,
+                event_type="known_match",
                 user_id=match.user_id,
                 timestamp=captured_at,
                 score=match.score,
                 camera_id=camera_id,
+                unknown_face_id=None,
                 display_name=match.display_name,
-                meta={"det_score": box.score},
+                meta=self._bbox_meta(box, frame_bgr),
             )
             self._sync.publish(event)
             emitted += 1

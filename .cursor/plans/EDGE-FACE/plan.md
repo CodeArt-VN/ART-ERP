@@ -1,13 +1,13 @@
 ---
 name: Edge Face AI
-overview: "Edge-Cloud Hybrid nhận diện khuôn mặt 100+ nhà hàng: AI trên POS (OpenVINO/iGPU), sync log HQ. Brief kỹ thuật anh đã gửi = baseline G0; G1 confirm contract ERP/HQ trước khi gắn ART-ERP-BE."
+overview: "Edge-Cloud Hybrid nhận diện khuôn mặt 100+ nhà hàng: AI trên POS (OpenVINO/iGPU), sync log về BE API. G1 đã chốt scope attendance/VIP/heatmap + vector lưu tập trung ở BE."
 todos:
   - id: g0-scaffold
     content: "G0: Scaffold Windows Service + pipeline + tests + docs theo Technical Brief"
     status: completed
   - id: g1-hq-erp
-    content: "G1: Xin anh confirm HQ API host + mapping ERP (attendance/CRM/VIP) — HARD STOP gắn BE"
-    status: pending
+    content: "G1: Confirm BE API + mapping ERP (attendance/CRM/VIP/heatmap) — partial Go"
+    status: completed
   - id: g2-pilot
     content: "G2: Pilot 1 chi nhánh (1–3 cam) — đo RAM/CPU/iGPU; adjust ROI & threshold"
     status: pending
@@ -29,7 +29,7 @@ isProject: false
 **Code:** [`ART-Edge-Face/`](../../../ART-Edge-Face/)  
 **Brief gốc:** Technical Brief anh gửi (Edge processing + resource constraints).
 
-**Trạng thái:** `WAITING_G1` — scaffold Edge đã sẵn; em **xin anh confirm** contract HQ/ERP trước khi đụng ART-ERP-BE.
+**Trạng thái:** `WAITING_G2_PILOT` — contract BE/ERP đã chốt; chưa có branch pilot / RTSP mẫu để đo thực địa.
 
 ---
 
@@ -63,17 +63,18 @@ flowchart TD
 
 ---
 
-## 1. Em xin anh confirm (G1) — HARD
+## 1. G1 — Đã confirm
 
-1. **HQ receiver:** NAS custom API hay endpoint mới trên ART-ERP-BE?  
-2. **Nghiệp vụ event:** chỉ audit log / chấm công / CRM VIP walk-in / cả ba?  
-3. **Enrollment:** ai tạo embedding (HQ app vs Edge tool)?  
-4. **Gallery scope:** theo chi nhánh hay toàn chuỗi?  
-5. **Pilot branch** nào trước (cam RTSP + POS mẫu)?
+1. **BE API** là receiver
+2. Scope nghiệp vụ:
+   - **Điểm danh / chấm công**
+   - **Đếm người theo khu vực / heatmap**
+   - **Nhận diện khách lạ / quen / VIP**
+3. **Vector sinh trắc học lưu tại BE**, clone xuống Edge để match local
+4. Scope **toàn chuỗi**, có **RBAC theo chi nhánh**
+5. Nếu **không nhận diện được**, Edge vẫn phải log để **manual mapping trên ERP theo branch**
 
-Agenda họp G1 (15–20’): xem `ART-Edge-Face/docs/03-hq-api-contract.md` + demo `--dry-check-config`.
-
-Biên bản: `gates/G1.md` sau họp.
+Tài liệu chốt hiện tại: `ART-Edge-Face/docs/03-hq-api-contract.md`
 
 ---
 
@@ -84,11 +85,12 @@ Biên bản: `gates/G1.md` sau họp.
 - Unit tests (config, ROI, gallery match, offline queue)
 - Docs architecture / flow / API contract draft
 
-## 3. Chưa làm (đúng vì chờ G1)
+## 3. Chưa làm / đang chờ
 
-- Không modify ART-ERP-BE/FE (submodule trống + chưa confirm contract)
+- Chưa modify ART-ERP-BE/FE vì submodule hiện trống trong workspace này
 - Không commit binary models
 - Không claim đã đo RAM/CPU trên i3 thật — cần pilot G2
+- Chưa có pilot branch / RTSP mẫu
 
 ---
 
@@ -97,4 +99,5 @@ Biên bản: `gates/G1.md` sau họp.
 - Service chạy ngầm trên POS pilot, không mở GUI
 - Match staff/VIP local, event về HQ (online + offline catch-up)
 - RAM/CPU trong ngưỡng brief (đo ở G2)
-- ERP hooks chỉ sau G1 + G5 lệnh anh
+- Unknown faces phải vào queue manual mapping theo branch
+- ERP hooks / BE implementation thật cần workspace có submodule BE đầy đủ hoặc repo BE riêng

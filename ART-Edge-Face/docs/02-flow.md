@@ -16,18 +16,25 @@
 4. Crop + embed (MobileFaceNet → L2 vector)
 5. FAISS cosine (`IndexFlatIP` trên vector đã chuẩn hóa)
 6. Nếu `score >= confidence_threshold`:
+   - Emit `known_match`
    - Dedupe theo `(camera_id, user_id)` trong `dedupe_window_seconds`
-   - Publish event → HQ; nếu fail → SQLite `synced=0`
+   - Publish event → BE; nếu fail → SQLite `synced=0`
+7. Nếu **không match**:
+   - Sinh `unknown_face_id`
+   - Emit `unknown_face` để manual mapping trên ERP theo branch
+   - Kèm `bbox.cx/cy` normalized để BE aggregate heatmap / zone counts
 
 ## 3. Sync bù
 
-Background mỗi `sync_interval_seconds`: POST lần lượt pending rows cho đến khi HQ OK hoặc lỗi mạng.
+Background mỗi `sync_interval_seconds`: POST lần lượt pending rows cho đến khi BE OK hoặc lỗi mạng.
 
 ## 4. ERP
 
-ERP **không** nhận RTSP. ERP gọi API HQ để:
+ERP **không** nhận RTSP. ERP gọi BE API để:
 
-- Tra cứu lịch sử nhận diện theo chi nhánh / ngày
-- Đồng bộ master nhân viên–VIP → HQ đẩy gallery xuống Edge (hoặc Edge pull)
+- Tra cứu lịch sử nhận diện / điểm danh theo chi nhánh / ngày
+- Aggregate khách lạ / quen / VIP
+- Tính toán heatmap / đếm người theo khu vực
+- Đồng bộ master nhân viên–VIP → BE đẩy gallery xuống Edge (hoặc Edge pull)
 
 Chi tiết contract: [03-hq-api-contract.md](03-hq-api-contract.md).

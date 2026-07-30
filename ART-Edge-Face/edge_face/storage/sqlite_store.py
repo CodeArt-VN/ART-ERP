@@ -16,17 +16,21 @@ log = logging.getLogger("edge_face.storage")
 @dataclass(frozen=True)
 class FaceEvent:
     branch_id: str
-    user_id: str
+    event_type: str
     timestamp: float
     score: float
     camera_id: str
+    user_id: str | None = None
+    unknown_face_id: str | None = None
     display_name: str | None = None
     meta: dict[str, Any] | None = None
 
     def to_payload(self) -> dict[str, Any]:
         return {
             "branch_id": self.branch_id,
+            "event_type": self.event_type,
             "user_id": self.user_id,
+            "unknown_face_id": self.unknown_face_id,
             "timestamp": self.timestamp,
             "score": round(float(self.score), 4),
             "camera_id": self.camera_id,
@@ -53,7 +57,9 @@ class EventStore:
                 CREATE TABLE IF NOT EXISTS face_events (
                     id INTEGER PRIMARY KEY AUTOINCREMENT,
                     branch_id TEXT NOT NULL,
-                    user_id TEXT NOT NULL,
+                    event_type TEXT NOT NULL,
+                    user_id TEXT,
+                    unknown_face_id TEXT,
                     ts REAL NOT NULL,
                     score REAL NOT NULL,
                     camera_id TEXT NOT NULL,
@@ -97,13 +103,16 @@ class EventStore:
             cur = conn.execute(
                 """
                 INSERT INTO face_events(
-                    branch_id, user_id, ts, score, camera_id, display_name,
+                    branch_id, event_type, user_id, unknown_face_id,
+                    ts, score, camera_id, display_name,
                     payload_json, synced, created_at, synced_at
-                ) VALUES (?,?,?,?,?,?,?,?,?,?)
+                ) VALUES (?,?,?,?,?,?,?,?,?,?,?,?)
                 """,
                 (
                     event.branch_id,
+                    event.event_type,
                     event.user_id,
+                    event.unknown_face_id,
                     event.timestamp,
                     event.score,
                     event.camera_id,

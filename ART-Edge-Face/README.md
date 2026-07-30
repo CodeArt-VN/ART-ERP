@@ -60,16 +60,23 @@ Env:
 ```json
 {
   "branch_id": "HN-001",
+  "event_type": "known_match",
   "user_id": "EMP-001",
+  "unknown_face_id": null,
   "timestamp": 1710000000.123,
   "score": 0.91,
   "camera_id": "cam-entrance-01",
   "display_name": "Nguyen Van A",
-  "meta": { "det_score": 0.88 }
+  "meta": {
+    "det_score": 0.88,
+    "bbox": { "cx": 0.34, "cy": 0.28 }
+  }
 }
 ```
 
-ERP gọi vào API HQ/NAS — contract chi tiết: `docs/03-hq-api-contract.md`.
+Ngoài `known_match`, Edge còn phát `unknown_face` để BE/ERP manual mapping theo chi nhánh.
+
+BE API contract chi tiết: `docs/03-hq-api-contract.md`.
 
 ## Layout
 

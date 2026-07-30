@@ -90,7 +90,7 @@ def test_gallery_match_cosine():
 
 def test_event_store_offline_and_dedupe(tmp_path: Path):
     store = EventStore(tmp_path / "t.db")
-    ev = FaceEvent("B1", "U1", 1_000.0, 0.9, "cam-1", "Alice")
+    ev = FaceEvent("B1", "known_match", 1_000.0, 0.9, "cam-1", "U1", None, "Alice")
     assert store.should_emit("cam-1", "U1", 1_000.0, 30) is True
     assert store.should_emit("cam-1", "U1", 1_010.0, 30) is False
     assert store.should_emit("cam-1", "U1", 1_040.0, 30) is True
@@ -98,6 +98,7 @@ def test_event_store_offline_and_dedupe(tmp_path: Path):
     pending = store.pending(10)
     assert len(pending) == 1
     assert pending[0][1]["user_id"] == "U1"
+    assert pending[0][1]["event_type"] == "known_match"
     store.mark_synced([pending[0][0]])
     assert store.pending_count() == 0
 
@@ -110,11 +111,29 @@ def test_sync_worker_queues_when_hq_down(tmp_path: Path, monkeypatch):
             return False
 
     worker = SyncWorker(store, FakeClient())  # type: ignore[arg-type]
-    worker.publish(FaceEvent("B1", "U9", 1.0, 0.88, "cam-2"))
+    worker.publish(FaceEvent("B1", "known_match", 1.0, 0.88, "cam-2", "U9"))
     assert store.pending_count() == 1
 
 
 def test_face_event_payload_size():
-    ev = FaceEvent("HN-001", "EMP-42", 1710000000.123, 0.9123, "cam-entrance-01", "Lan")
+    ev = FaceEvent(
+        "HN-001",
+        "unknown_face",
+        1710000000.123,
+        0.0,
+        "cam-entrance-01",
+        None,
+        "UNK-0001",
+        None,
+        {"bbox": {"cx": 0.2, "cy": 0.4}},
+    )
     payload = json.dumps(ev.to_payload())
     assert len(payload.encode("utf-8")) < 1024
+
+
+def test_unknown_event_payload_has_null_user_id():
+    ev = FaceEvent("B1", "unknown_face", 2.0, 0.0, "cam-1", None, "UNK-1")
+    payload = ev.to_payload()
+    assert payload["event_type"] == "unknown_face"
+    assert payload["user_id"] is None
+    assert payload["unknown_face_id"] == "UNK-1"
