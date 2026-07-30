@@ -1,0 +1,13 @@
+# Edge Face AI — Windows POS / Core i3 + Intel iGPU
+# Pin versions for reproducible field deploy.
+
+opencv-python-headless>=4.8,<5
+openvino>=2024.0,<2025
+numpy>=1.24,<2.1
+faiss-cpu>=1.7.4,<1.9
+requests>=2.31,<3
+pywin32>=306; sys_platform == "win32"
+
+# Dev / test only (optional on POS)
+pytest>=8.0,<9
+pytest-mock>=3.12,<4

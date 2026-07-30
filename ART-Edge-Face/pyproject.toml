@@ -1,0 +1,32 @@
+[build-system]
+requires = ["setuptools>=68", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "art-edge-face"
+version = "0.1.0"
+description = "Headless Edge AI face recognition Windows Service for ART restaurant chain"
+readme = "README.md"
+requires-python = ">=3.10"
+dependencies = [
+  "opencv-python-headless>=4.8,<5",
+  "openvino>=2024.0,<2025",
+  "numpy>=1.24,<2.1",
+  "faiss-cpu>=1.7.4,<1.9",
+  "requests>=2.31,<3",
+]
+
+[project.optional-dependencies]
+windows = ["pywin32>=306"]
+dev = ["pytest>=8.0,<9", "pytest-mock>=3.12,<4"]
+
+[project.scripts]
+art-edge-face = "edge_face.__main__:main"
+
+[tool.setuptools.packages.find]
+where = ["."]
+include = ["edge_face*"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+pythonpath = ["."]
