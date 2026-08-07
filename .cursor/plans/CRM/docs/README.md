@@ -4,9 +4,9 @@
 |------|------|------------|
 | [g1-nghiep-vu-flow.md](g1-nghiep-vu-flow.md) | G1 | **CONFIRMED** |
 | [02-flow-xu-ly.md](02-flow-xu-ly.md) | G1/G2 | Draft khóa G1 |
-| [03-danh-sach-forms.md](03-danh-sach-forms.md) | G2 | Chờ Confirm |
-| [04-chuc-nang-trong-form.md](04-chuc-nang-trong-form.md) | G2 | Chờ Confirm |
-| [05-test-cases.md](05-test-cases.md) | G2 draft | Chờ Confirm |
+| [03-danh-sach-forms.md](03-danh-sach-forms.md) | G2 | Naming đã Confirm (bỏ `crm-`); nội dung form còn iterate G3.4 |
+| [04-chuc-nang-trong-form.md](04-chuc-nang-trong-form.md) | G2 | Naming đã Confirm; chi tiết chức năng còn iterate |
+| [05-test-cases.md](05-test-cases.md) | G2 draft | Chờ Confirm sau G3 |
 | [07-phan-bien-3-role-g3.md](07-phan-bien-3-role-g3.md) | G3 | Vòng 1 (nghiêng Opp) — superseded |
 | [08-phan-bien-toan-bo-forms-g32.md](08-phan-bien-toan-bo-forms-g32.md) | G3.2 | Vòng 2 trước/đầu redesign — superseded |
 | [09-phan-bien-lai-toan-bo-forms.md](09-phan-bien-lai-toan-bo-forms.md) | G3.3 | Phản biện lại 25/25 forms sau G3.2 |
