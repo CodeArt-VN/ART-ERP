@@ -10,3 +10,6 @@
 [submodule "Document"]
 	path = Document
 	url = https://github.com/CodeArt-VN/ART-ERP-FE-Documents.git
+[submodule "ART-ERP-MCP"]
+	path = ART-ERP-MCP
+	url = https://github.com/CodeArt-VN/ART-ERP-MCP.git
