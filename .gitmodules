@@ -13,3 +13,6 @@
 [submodule "ART-ERP-MCP"]
 	path = ART-ERP-MCP
 	url = https://github.com/CodeArt-VN/ART-ERP-MCP.git
+[submodule "ART-ERP-Edge"]
+	path = ART-ERP-Edge
+	url = https://github.com/CodeArt-VN/ART-ERP-Edge.git
