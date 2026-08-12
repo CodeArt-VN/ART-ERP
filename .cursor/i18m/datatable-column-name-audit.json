@@ -1,0 +1,1349 @@
+{
+	"uniqueStaticNames": 426,
+	"missingCount": 209,
+	"caseMismatchCount": 3,
+	"missing": [
+		{
+			"name": "%",
+			"files": [
+				"ART-ERP-FE/src/app/pages/BI/dynamic-report-detail/dynamic-report-detail.page.html"
+			]
+		},
+		{
+			"name": "Academic rank",
+			"files": [
+				"ART-ERP-FE/src/app/pages/HRM/staff-detail/components/staff-personnel-profile/staff-academic-level/staff-academic-level.component.html"
+			]
+		},
+		{
+			"name": "Account number",
+			"files": [
+				"ART-ERP-FE/src/app/pages/ACCOUNTANT/bank-statement/bank-statement.page.html",
+				"ART-ERP-FE/src/app/pages/HRM/staff-detail/components/staff-personnel-profile/staff-personnel-bank/staff-personnel-bank.component.html"
+			]
+		},
+		{
+			"name": "App version",
+			"files": [
+				"ART-ERP-FE/src/app/pages/SYS/system-log/system-log.page.html"
+			]
+		},
+		{
+			"name": "Balance after",
+			"files": [
+				"ART-ERP-FE/src/app/pages/HRM/staff-detail/components/staff-work-schedule/staff-work-schedule.component.html"
+			]
+		},
+		{
+			"name": "Balance before",
+			"files": [
+				"ART-ERP-FE/src/app/pages/HRM/staff-detail/components/staff-work-schedule/staff-work-schedule.component.html"
+			]
+		},
+		{
+			"name": "Bank branch",
+			"files": [
+				"ART-ERP-FE/src/app/pages/HRM/staff-detail/components/staff-personnel-profile/staff-personnel-bank/staff-personnel-bank.component.html"
+			]
+		},
+		{
+			"name": "Benefit name",
+			"files": [
+				"ART-ERP-FE/src/app/pages/HRM/staff-agreement-detail/staff-agreement-detail.page.html"
+			]
+		},
+		{
+			"name": "Bill no",
+			"files": [
+				"ART-ERP-FE/src/app/pages/ACCOUNTANT/ar-invoice/ar-invoice.page.html"
+			]
+		},
+		{
+			"name": "Bussiness partner",
+			"files": [
+				"ART-ERP-FE/src/app/pages/PR/pr-program-voucher/pr-program-voucher.page.html"
+			]
+		},
+		{
+			"name": "Bên bán",
+			"files": [
+				"ART-ERP-FE/src/app/pages/ACCOUNTANT/ap-invoice/ap-invoice.page.html"
+			]
+		},
+		{
+			"name": "Calculation date",
+			"files": [
+				"ART-ERP-FE/src/app/pages/HRM/leave-statistics/leave-statistics.page.html"
+			]
+		},
+		{
+			"name": "Calculation method type",
+			"files": [
+				"ART-ERP-FE/src/app/pages/HRM/insurance-policy-detail/insurance-policy-detail.page.html",
+				"ART-ERP-FE/src/app/pages/HRM/staff-contract-detail/staff-contract-detail.page.html"
+			]
+		},
+		{
+			"name": "Calculation type",
+			"files": [
+				"ART-ERP-FE/src/app/pages/HRM/staff-agreement-detail/staff-agreement-detail.page.html"
+			]
+		},
+		{
+			"name": "Card number",
+			"files": [
+				"ART-ERP-FE/src/app/pages/HRM/staff-detail/components/staff-personnel-profile/staff-personnel-identity-card-and-PIT/staff-personnel-identity-card-and-PIT.component.html"
+			]
+		},
+		{
+			"name": "Cerificate number",
+			"files": [
+				"ART-ERP-FE/src/app/pages/HRM/staff-detail/components/staff-personnel-profile/staff-specialized-skill/staff-specialized-skill.component.html"
+			]
+		},
+		{
+			"name": "Certificate number",
+			"files": [
+				"ART-ERP-FE/src/app/pages/HRM/staff-detail/components/staff-personnel-profile/staff-foreign-language/staff-foreign-language.component.html"
+			]
+		},
+		{
+			"name": "Certificate type",
+			"files": [
+				"ART-ERP-FE/src/app/pages/HRM/staff-detail/components/staff-personnel-profile/staff-foreign-language/staff-foreign-language.component.html"
+			]
+		},
+		{
+			"name": "Change amount",
+			"files": [
+				"ART-ERP-FE/src/app/pages/HRM/staff-detail/components/staff-work-schedule/staff-work-schedule.component.html"
+			]
+		},
+		{
+			"name": "Change type",
+			"files": [
+				"ART-ERP-FE/src/app/pages/HRM/staff-agreement-detail/staff-agreement-detail.page.html",
+				"ART-ERP-FE/src/app/pages/HRM/staff-detail/components/staff-work-schedule/staff-work-schedule.component.html"
+			]
+		},
+		{
+			"name": "Checked date",
+			"files": [
+				"ART-ERP-FE/src/app/pages/ACCOUNTANT/bank-account/bank-account.page.html"
+			]
+		},
+		{
+			"name": "Closed quantity",
+			"files": [
+				"ART-ERP-FE/src/app/pages/WMS/warehouse-item-balance/warehouse-item-balance.page.html"
+			]
+		},
+		{
+			"name": "Command",
+			"files": [
+				"ART-ERP-FE/src/app/pages/ADMIN/sync-job/sync-job.page.html"
+			]
+		},
+		{
+			"name": "Concurrent position",
+			"files": [
+				"ART-ERP-FE/src/app/pages/HRM/staff-decision-detail/staff-decision-detail.page.html"
+			]
+		},
+		{
+			"name": "Contribution rate",
+			"files": [
+				"ART-ERP-FE/src/app/pages/HRM/tax-policy/tax-policy.page.html"
+			]
+		},
+		{
+			"name": "Control type",
+			"files": [
+				"ART-ERP-FE/src/app/pages/HRM/salary-policy-detail/salary-policy-detail.page.html",
+				"ART-ERP-FE/src/app/pages/HRM/udf/udf.page.html"
+			]
+		},
+		{
+			"name": "Count",
+			"files": [
+				"ART-ERP-FE/src/app/pages/CRM/attendance-booking/attendance-booking.page.html",
+				"ART-ERP-FE/src/app/pages/POS/pos-booking/pos-booking.page.html"
+			]
+		},
+		{
+			"name": "Counted",
+			"files": [
+				"ART-ERP-FE/src/app/pages/WMS/cycle-count-detail/cycle-count-detail.page.html"
+			]
+		},
+		{
+			"name": "Counted quantity",
+			"files": [
+				"ART-ERP-FE/src/app/pages/WMS/cycle-count-detail/cycle-count-detail.page.html"
+			]
+		},
+		{
+			"name": "Created by",
+			"files": [
+				"ART-ERP-FE/src/app/pages/PROD/scenario/scenario.page.html"
+			]
+		},
+		{
+			"name": "cSort",
+			"files": [
+				"ART-ERP-FE/src/app/pages/BI/dynamic-report-detail/dynamic-report-detail.page.html"
+			]
+		},
+		{
+			"name": "Data type",
+			"files": [
+				"ART-ERP-FE/src/app/pages/HRM/salary-policy-detail/salary-policy-detail.page.html",
+				"ART-ERP-FE/src/app/pages/HRM/udf/udf.page.html"
+			]
+		},
+		{
+			"name": "Date of expiry",
+			"files": [
+				"ART-ERP-FE/src/app/pages/HRM/staff-detail/components/staff-personnel-profile/staff-foreign-language/staff-foreign-language.component.html",
+				"ART-ERP-FE/src/app/pages/HRM/staff-detail/components/staff-personnel-profile/staff-personnel-identity-card-and-PIT/staff-personnel-identity-card-and-PIT.component.html",
+				"ART-ERP-FE/src/app/pages/HRM/staff-detail/components/staff-personnel-profile/staff-specialized-skill/staff-specialized-skill.component.html"
+			]
+		},
+		{
+			"name": "Degree",
+			"files": [
+				"ART-ERP-FE/src/app/pages/HRM/staff-detail/components/staff-personnel-profile/staff-academic-level/staff-academic-level.component.html"
+			]
+		},
+		{
+			"name": "Department",
+			"files": [
+				"ART-ERP-FE/src/app/pages/HRM/leave-statistics/leave-statistics.page.html",
+				"ART-ERP-FE/src/app/pages/HRM/staff-decision-detail/staff-decision-detail.page.html",
+				"ART-ERP-FE/src/app/pages/PURCHASE/purchase-request/purchase-request.page.html"
+			]
+		},
+		{
+			"name": "Difference amount",
+			"files": [
+				"ART-ERP-FE/src/app/pages/ACCOUNTANT/outgoing-payment/outgoing-payment.page.html"
+			]
+		},
+		{
+			"name": "DiningCard",
+			"files": [
+				"ART-ERP-FE/src/app/pages/POS/pos-booking/pos-booking.page.html"
+			]
+		},
+		{
+			"name": "Document date",
+			"files": [
+				"ART-ERP-FE/src/app/pages/ACCOUNTANT/ap-invoice-detail/ap-invoice-detail.page.html",
+				"ART-ERP-FE/src/app/pages/ACCOUNTANT/incoming-payment/incoming-payment.page.html",
+				"ART-ERP-FE/src/app/pages/ACCOUNTANT/outgoing-payment/outgoing-payment.page.html",
+				"ART-ERP-FE/src/app/pages/PURCHASE/purchase-order-detail/purchase-order-detail.page.html"
+			]
+		},
+		{
+			"name": "Document date from",
+			"files": [
+				"ART-ERP-FE/src/app/pages/FINANCIAL/posting-period/posting-period.page.html"
+			]
+		},
+		{
+			"name": "Document date to",
+			"files": [
+				"ART-ERP-FE/src/app/pages/FINANCIAL/posting-period/posting-period.page.html"
+			]
+		},
+		{
+			"name": "Due date",
+			"files": [
+				"ART-ERP-FE/src/app/pages/ACCOUNTANT/ap-invoice-detail/ap-invoice-detail.page.html",
+				"ART-ERP-FE/src/app/pages/PURCHASE/purchase-order-detail/purchase-order-detail.page.html"
+			]
+		},
+		{
+			"name": "Due date from",
+			"files": [
+				"ART-ERP-FE/src/app/pages/FINANCIAL/posting-period/posting-period.page.html"
+			]
+		},
+		{
+			"name": "Due date to",
+			"files": [
+				"ART-ERP-FE/src/app/pages/FINANCIAL/posting-period/posting-period.page.html"
+			]
+		},
+		{
+			"name": "DueDate",
+			"files": [
+				"ART-ERP-FE/src/app/pages/PROD/order-recommendation/order-recommendation.page.html",
+				"ART-ERP-FE/src/app/pages/PROD/scenario-detail/scenario-detail.page.html",
+				"ART-ERP-FE/src/app/pages/PROD/scenario-pegging-modal/scenario-pegging-modal.page.html"
+			]
+		},
+		{
+			"name": "Duration",
+			"files": [
+				"ART-ERP-FE/src/app/pages/PM/task/components/list/list.component.html"
+			]
+		},
+		{
+			"name": "Effective date from",
+			"files": [
+				"ART-ERP-FE/src/app/pages/PROD/apply-items-replacement/apply-items-replacement.page.html",
+				"ART-ERP-FE/src/app/pages/PROD/item-replacement-group-detail/item-replacement-group-detail.page.html"
+			]
+		},
+		{
+			"name": "Effective date to",
+			"files": [
+				"ART-ERP-FE/src/app/pages/PROD/apply-items-replacement/apply-items-replacement.page.html",
+				"ART-ERP-FE/src/app/pages/PROD/item-replacement-group-detail/item-replacement-group-detail.page.html"
+			]
+		},
+		{
+			"name": "Effective from",
+			"files": [
+				"ART-ERP-FE/src/app/pages/HRM/staff-agreement/staff-agreement.page.html"
+			]
+		},
+		{
+			"name": "Effective to",
+			"files": [
+				"ART-ERP-FE/src/app/pages/HRM/staff-agreement/staff-agreement.page.html"
+			]
+		},
+		{
+			"name": "Employee",
+			"files": [
+				"ART-ERP-FE/src/app/pages/HRM/staff-agreement-detail/staff-agreement-detail.page.html"
+			]
+		},
+		{
+			"name": "Enrollment date",
+			"files": [
+				"ART-ERP-FE/src/app/pages/HRM/staff-benefit-enrollment/staff-benefit-enrollment.page.html"
+			]
+		},
+		{
+			"name": "ErrorMessage",
+			"files": [
+				"ART-ERP-FE/src/app/pages/ADMIN/sync-job/sync-job.page.html"
+			]
+		},
+		{
+			"name": "Event type",
+			"files": [
+				"ART-ERP-FE/src/app/pages/CRM/business-partner-detail/components/bp-membership-loyalty-history/bp-membership-loyalty-history.component.html"
+			]
+		},
+		{
+			"name": "Exchange date",
+			"files": [
+				"ART-ERP-FE/src/app/pages/ACCOUNTANT/exchange-rate/exchange-rate.page.html"
+			]
+		},
+		{
+			"name": "ExeDate",
+			"files": [
+				"ART-ERP-FE/src/app/pages/ADMIN/sync-job/sync-job.page.html"
+			]
+		},
+		{
+			"name": "From to Location",
+			"files": [
+				"ART-ERP-FE/src/app/pages/WMS/transaction-modal/transaction-modal.page.html"
+			]
+		},
+		{
+			"name": "From to LPN",
+			"files": [
+				"ART-ERP-FE/src/app/pages/WMS/transaction-modal/transaction-modal.page.html"
+			]
+		},
+		{
+			"name": "FullName",
+			"files": [
+				"ART-ERP-FE/src/app/pages/HRM/overtime-request-detail/overtime-request-detail.page.html"
+			]
+		},
+		{
+			"name": "Gender",
+			"files": [
+				"ART-ERP-FE/src/app/pages/HRM/leave-type/leave-type.page.html",
+				"ART-ERP-FE/src/app/pages/HRM/staff-detail/components/staff-personnel-profile/staff-personnel-family/staff-personnel-family.component.html"
+			]
+		},
+		{
+			"name": "Holidays for production",
+			"files": [
+				"ART-ERP-FE/src/app/pages/PROD/scenario/scenario.page.html"
+			]
+		},
+		{
+			"name": "Holidays for purchase",
+			"files": [
+				"ART-ERP-FE/src/app/pages/PROD/scenario/scenario.page.html"
+			]
+		},
+		{
+			"name": "Host",
+			"files": [
+				"ART-ERP-FE/src/app/pages/ADMIN/printer/printer.page.html"
+			]
+		},
+		{
+			"name": "ID item",
+			"files": [
+				"ART-ERP-FE/src/app/pages/SALE/inventory-balance/inventory-balance.page.html"
+			]
+		},
+		{
+			"name": "ID outbound",
+			"files": [
+				"ART-ERP-FE/src/app/pages/WMS/packing-order/packing-order.page.html",
+				"ART-ERP-FE/src/app/pages/WMS/picking-order/picking-order.page.html",
+				"ART-ERP-FE/src/app/pages/WMS/shipping/shipping.page.html"
+			]
+		},
+		{
+			"name": "Id sale forecast",
+			"files": [
+				"ART-ERP-FE/src/app/pages/PROD/scenario/scenario.page.html"
+			]
+		},
+		{
+			"name": "IDBranch",
+			"files": [
+				"ART-ERP-FE/src/app/pages/ADMIN/sync-job/sync-job.page.html"
+			]
+		},
+		{
+			"name": "IDItem",
+			"files": [
+				"ART-ERP-FE/src/app/pages/PURCHASE/purchase-request-detail/purchase-order-modal/purchase-order-modal.page.html"
+			]
+		},
+		{
+			"name": "IDPO",
+			"files": [
+				"ART-ERP-FE/src/app/pages/WMS/receipt-mobile/receipt-mobile.page.html",
+				"ART-ERP-FE/src/app/pages/WMS/receipt/receipt.page.html"
+			]
+		},
+		{
+			"name": "IDVendor",
+			"files": [
+				"ART-ERP-FE/src/app/pages/PURCHASE/item-planning-data/item-planning-data.page.html",
+				"ART-ERP-FE/src/app/pages/WMS/item-detail/item-detail.page.html"
+			]
+		},
+		{
+			"name": "Insurance salary",
+			"files": [
+				"ART-ERP-FE/src/app/pages/HRM/insurance-enrollment-detail/insurance-enrollment-detail.page.html"
+			]
+		},
+		{
+			"name": "Inventory level",
+			"files": [
+				"ART-ERP-FE/src/app/pages/PROD/scenario/scenario.page.html"
+			]
+		},
+		{
+			"name": "Invoice No.",
+			"files": [
+				"ART-ERP-FE/src/app/pages/ACCOUNTANT/ar-invoice/ar-invoice.page.html",
+				"ART-ERP-FE/src/app/pages/SALE/sale-order2/sale-order2.page.html"
+			]
+		},
+		{
+			"name": "IP address",
+			"files": [
+				"ART-ERP-FE/src/app/pages/SYS/system-log/system-log.page.html"
+			]
+		},
+		{
+			"name": "Is consider existing inventory",
+			"files": [
+				"ART-ERP-FE/src/app/pages/PROD/scenario/scenario.page.html"
+			]
+		},
+		{
+			"name": "Is consider purchase orders",
+			"files": [
+				"ART-ERP-FE/src/app/pages/PROD/scenario/scenario.page.html"
+			]
+		},
+		{
+			"name": "Is consider purchase quotations",
+			"files": [
+				"ART-ERP-FE/src/app/pages/PROD/scenario/scenario.page.html"
+			]
+		},
+		{
+			"name": "Is consider purchase request",
+			"files": [
+				"ART-ERP-FE/src/app/pages/PROD/scenario/scenario.page.html"
+			]
+		},
+		{
+			"name": "Is consider sales orders",
+			"files": [
+				"ART-ERP-FE/src/app/pages/PROD/scenario/scenario.page.html"
+			]
+		},
+		{
+			"name": "Is consider sales quotations",
+			"files": [
+				"ART-ERP-FE/src/app/pages/PROD/scenario/scenario.page.html"
+			]
+		},
+		{
+			"name": "Is consider work orders",
+			"files": [
+				"ART-ERP-FE/src/app/pages/PROD/scenario/scenario.page.html"
+			]
+		},
+		{
+			"name": "Is discontinued",
+			"files": [
+				"ART-ERP-FE/src/app/pages/PURCHASE/purchase-quotation-detail/purchase-quotation-items/purchase-quotation-items.component.html"
+			]
+		},
+		{
+			"name": "Is display selected item only",
+			"files": [
+				"ART-ERP-FE/src/app/pages/PROD/scenario/scenario.page.html"
+			]
+		},
+		{
+			"name": "Is expanded production order",
+			"files": [
+				"ART-ERP-FE/src/app/pages/PROD/scenario/scenario.page.html"
+			]
+		},
+		{
+			"name": "Is expanded purchase order",
+			"files": [
+				"ART-ERP-FE/src/app/pages/PROD/scenario/scenario.page.html"
+			]
+		},
+		{
+			"name": "Is expanded purchase quotations",
+			"files": [
+				"ART-ERP-FE/src/app/pages/PROD/scenario/scenario.page.html"
+			]
+		},
+		{
+			"name": "Is expanded purchase request",
+			"files": [
+				"ART-ERP-FE/src/app/pages/PROD/scenario/scenario.page.html"
+			]
+		},
+		{
+			"name": "Is expanded reserve invoice",
+			"files": [
+				"ART-ERP-FE/src/app/pages/PROD/scenario/scenario.page.html"
+			]
+		},
+		{
+			"name": "Is expanded sales order",
+			"files": [
+				"ART-ERP-FE/src/app/pages/PROD/scenario/scenario.page.html"
+			]
+		},
+		{
+			"name": "Is expanded sales quotations",
+			"files": [
+				"ART-ERP-FE/src/app/pages/PROD/scenario/scenario.page.html"
+			]
+		},
+		{
+			"name": "Is expanded transfer request",
+			"files": [
+				"ART-ERP-FE/src/app/pages/PROD/scenario/scenario.page.html"
+			]
+		},
+		{
+			"name": "Is ignore cumulative lead time",
+			"files": [
+				"ART-ERP-FE/src/app/pages/PROD/scenario/scenario.page.html"
+			]
+		},
+		{
+			"name": "Is inventory transfer request",
+			"files": [
+				"ART-ERP-FE/src/app/pages/PROD/scenario/scenario.page.html"
+			]
+		},
+		{
+			"name": "Is items without requirement",
+			"files": [
+				"ART-ERP-FE/src/app/pages/PROD/scenario/scenario.page.html"
+			]
+		},
+		{
+			"name": "Is minimum inventory level",
+			"files": [
+				"ART-ERP-FE/src/app/pages/PROD/scenario/scenario.page.html"
+			]
+		},
+		{
+			"name": "Is only nettable",
+			"files": [
+				"ART-ERP-FE/src/app/pages/PROD/scenario/scenario.page.html"
+			]
+		},
+		{
+			"name": "Is prevent",
+			"files": [
+				"ART-ERP-FE/src/app/pages/PROD/scenario-detail/scenario-detail.page.html"
+			]
+		},
+		{
+			"name": "Is recommend itrq",
+			"files": [
+				"ART-ERP-FE/src/app/pages/PROD/scenario/scenario.page.html"
+			]
+		},
+		{
+			"name": "Is recommend production order",
+			"files": [
+				"ART-ERP-FE/src/app/pages/PROD/scenario/scenario.page.html"
+			]
+		},
+		{
+			"name": "Is recommend purchase order",
+			"files": [
+				"ART-ERP-FE/src/app/pages/PROD/scenario/scenario.page.html"
+			]
+		},
+		{
+			"name": "Is recommend to default warehouse",
+			"files": [
+				"ART-ERP-FE/src/app/pages/PROD/scenario/scenario.page.html"
+			]
+		},
+		{
+			"name": "Is recurring order transactions",
+			"files": [
+				"ART-ERP-FE/src/app/pages/PROD/scenario/scenario.page.html"
+			]
+		},
+		{
+			"name": "Is reserve invoice",
+			"files": [
+				"ART-ERP-FE/src/app/pages/PROD/scenario/scenario.page.html"
+			]
+		},
+		{
+			"name": "Is scenario a simulation",
+			"files": [
+				"ART-ERP-FE/src/app/pages/PROD/scenario/scenario.page.html"
+			]
+		},
+		{
+			"name": "IsActivedVersion",
+			"files": [
+				"ART-ERP-FE/src/app/pages/HRM/work-rule/work-rule.page.html"
+			]
+		},
+		{
+			"name": "IsDone",
+			"files": [
+				"ART-ERP-FE/src/app/pages/ADMIN/sync-job/sync-job.page.html"
+			]
+		},
+		{
+			"name": "IsPublished",
+			"files": [
+				"ART-ERP-FE/src/app/pages/HRM/work-rule/work-rule.page.html"
+			]
+		},
+		{
+			"name": "IsRunning",
+			"files": [
+				"ART-ERP-FE/src/app/pages/ADMIN/sync-job/sync-job.page.html"
+			]
+		},
+		{
+			"name": "Items group",
+			"files": [
+				"ART-ERP-FE/src/app/pages/PROD/scenario/scenario.page.html"
+			]
+		},
+		{
+			"name": "Job title",
+			"files": [
+				"ART-ERP-FE/src/app/pages/HRM/leave-statistics/leave-statistics.page.html",
+				"ART-ERP-FE/src/app/pages/HRM/overtime-request-detail/overtime-request-detail.page.html",
+				"ART-ERP-FE/src/app/pages/HRM/staff-decision-detail/staff-decision-detail.page.html",
+				"ART-ERP-FE/src/app/pages/HRM/staff-detail/components/staff-personnel-profile/staff-work-experience/staff-work-experience.component.html"
+			]
+		},
+		{
+			"name": "Journal remark",
+			"files": [
+				"ART-ERP-FE/src/app/pages/PROD/production-order/production-order.page.html"
+			]
+		},
+		{
+			"name": "Last execute date",
+			"files": [
+				"ART-ERP-FE/src/app/pages/PROD/scenario/scenario.page.html"
+			]
+		},
+		{
+			"name": "Last modified by",
+			"files": [
+				"ART-ERP-FE/src/app/pages/PROD/scenario/scenario.page.html"
+			]
+		},
+		{
+			"name": "Last modified date",
+			"files": [
+				"ART-ERP-FE/src/app/pages/ADMIN/translate/translate.page.html"
+			]
+		},
+		{
+			"name": "Lead time",
+			"files": [
+				"ART-ERP-FE/src/app/pages/PROD/order-recommendation/order-recommendation.page.html",
+				"ART-ERP-FE/src/app/pages/PROD/scenario-detail/scenario-detail.page.html",
+				"ART-ERP-FE/src/app/pages/PURCHASE/item-planning-data/item-planning-data.page.html",
+				"ART-ERP-FE/src/app/pages/WMS/item-detail/item-detail.page.html"
+			]
+		},
+		{
+			"name": "Level",
+			"files": [
+				"ART-ERP-FE/src/app/pages/CRM/level-policy-group-detail/level-policy-group-detail.page.html"
+			]
+		},
+		{
+			"name": "levelSort",
+			"files": [
+				"ART-ERP-FE/src/app/pages/BI/dynamic-report-detail/dynamic-report-detail.page.html"
+			]
+		},
+		{
+			"name": "Listening skill",
+			"files": [
+				"ART-ERP-FE/src/app/pages/HRM/staff-detail/components/staff-personnel-profile/staff-foreign-language/staff-foreign-language.component.html"
+			]
+		},
+		{
+			"name": "Log",
+			"files": [
+				"ART-ERP-FE/src/app/pages/HRM/personal-scheduler-generator/personal-scheduler-generator.page.html",
+				"ART-ERP-FE/src/app/pages/HRM/point-modal/point-modal.page.html"
+			]
+		},
+		{
+			"name": "Maximum cumulative leadTime",
+			"files": [
+				"ART-ERP-FE/src/app/pages/PROD/scenario/scenario.page.html"
+			]
+		},
+		{
+			"name": "Member",
+			"files": [
+				"ART-ERP-FE/src/app/pages/CRM/member-card/member-card.page.html"
+			]
+		},
+		{
+			"name": "Membership",
+			"files": [
+				"ART-ERP-FE/src/app/pages/CRM/business-partner-detail/components/bp-membership-loyalty-history/bp-membership-loyalty-history.component.html"
+			]
+		},
+		{
+			"name": "Minimum order qty",
+			"files": [
+				"ART-ERP-FE/src/app/pages/PURCHASE/item-planning-data-modal/item-planning-data-modal.page.html"
+			]
+		},
+		{
+			"name": "Minimum order Qty",
+			"files": [
+				"ART-ERP-FE/src/app/pages/PURCHASE/purchase-quotation-detail/purchase-quotation-items/purchase-quotation-items.component.html"
+			]
+		},
+		{
+			"name": "Minimum order value",
+			"files": [
+				"ART-ERP-FE/src/app/pages/PR/pr-voucher-policy/pr-voucher-policy.page.html"
+			]
+		},
+		{
+			"name": "Module",
+			"files": [
+				"ART-ERP-FE/src/app/pages/SYS/system-log/system-log.page.html"
+			]
+		},
+		{
+			"name": "Ngày HĐ",
+			"files": [
+				"ART-ERP-FE/src/app/pages/ACCOUNTANT/ap-invoice/ap-invoice.page.html"
+			]
+		},
+		{
+			"name": "Number of copy",
+			"files": [
+				"ART-ERP-FE/src/app/pages/PR/pr-voucher-policy/pr-voucher-policy.page.html"
+			]
+		},
+		{
+			"name": "Old value",
+			"files": [
+				"ART-ERP-FE/src/app/components/json-viewer/json-viewer.component.html"
+			]
+		},
+		{
+			"name": "Open quantity",
+			"files": [
+				"ART-ERP-FE/src/app/pages/WMS/warehouse-item-balance/warehouse-item-balance.page.html"
+			]
+		},
+		{
+			"name": "Order multiple",
+			"files": [
+				"ART-ERP-FE/src/app/pages/PROD/order-recommendation/order-recommendation.page.html",
+				"ART-ERP-FE/src/app/pages/PROD/scenario-detail/scenario-detail.page.html",
+				"ART-ERP-FE/src/app/pages/PURCHASE/item-planning-data/item-planning-data.page.html",
+				"ART-ERP-FE/src/app/pages/WMS/item-detail/item-detail.page.html"
+			]
+		},
+		{
+			"name": "Orders",
+			"files": [
+				"ART-ERP-FE/src/app/pages/SHIP/shipment/shipment.page.html"
+			]
+		},
+		{
+			"name": "Overview",
+			"files": [
+				"ART-ERP-FE/src/app/pages/HRM/work-rule/work-rule.page.html"
+			]
+		},
+		{
+			"name": "Owner",
+			"files": [
+				"ART-ERP-FE/src/app/pages/PM/task/components/list/list.component.html"
+			]
+		},
+		{
+			"name": "Packaged date",
+			"files": [
+				"ART-ERP-FE/src/app/pages/WMS/outbound-order-detail/outbound-order-detail.page.html",
+				"ART-ERP-FE/src/app/pages/WMS/packing-order/packing-order.page.html"
+			]
+		},
+		{
+			"name": "Payment status",
+			"files": [
+				"ART-ERP-FE/src/app/pages/ACCOUNTANT/ap-invoice/ap-invoice.page.html"
+			]
+		},
+		{
+			"name": "Penalty date",
+			"files": [
+				"ART-ERP-FE/src/app/pages/HRM/work-rule-violation/work-rule-violation.page.html"
+			]
+		},
+		{
+			"name": "PhoneNumber",
+			"files": [
+				"ART-ERP-FE/src/app/pages/ADMIN/user/user.page.html"
+			]
+		},
+		{
+			"name": "Picked date",
+			"files": [
+				"ART-ERP-FE/src/app/pages/ACCOUNTANT/ap-invoice-detail/ap-invoice-detail.page.html",
+				"ART-ERP-FE/src/app/pages/WMS/outbound-order-detail/outbound-order-detail.page.html",
+				"ART-ERP-FE/src/app/pages/WMS/picking-order/picking-order.page.html"
+			]
+		},
+		{
+			"name": "Planned quantity",
+			"files": [
+				"ART-ERP-FE/src/app/pages/PROD/production-order/production-order.page.html"
+			]
+		},
+		{
+			"name": "Point date",
+			"files": [
+				"ART-ERP-FE/src/app/pages/CRM/business-partner-detail/components/bp-membership-loyalty-history/bp-membership-loyalty-history.component.html"
+			]
+		},
+		{
+			"name": "Policy",
+			"files": [
+				"ART-ERP-FE/src/app/pages/HRM/ptos-enrollment/ptos-enrollment.page.html"
+			]
+		},
+		{
+			"name": "Policy Level",
+			"files": [
+				"ART-ERP-FE/src/app/pages/CRM/membership-loyalty/membership-loyalty.page.html"
+			]
+		},
+		{
+			"name": "Policy tax",
+			"files": [
+				"ART-ERP-FE/src/app/pages/HRM/contract-template/contract-template.page.html"
+			]
+		},
+		{
+			"name": "Port",
+			"files": [
+				"ART-ERP-FE/src/app/pages/ADMIN/printer/printer.page.html"
+			]
+		},
+		{
+			"name": "Posting date",
+			"files": [
+				"ART-ERP-FE/src/app/pages/ACCOUNTANT/ap-invoice-detail/ap-invoice-detail.page.html",
+				"ART-ERP-FE/src/app/pages/PURCHASE/purchase-order-detail/purchase-order-detail.page.html"
+			]
+		},
+		{
+			"name": "Posting date from",
+			"files": [
+				"ART-ERP-FE/src/app/pages/FINANCIAL/posting-period/posting-period.page.html"
+			]
+		},
+		{
+			"name": "Posting date to",
+			"files": [
+				"ART-ERP-FE/src/app/pages/FINANCIAL/posting-period/posting-period.page.html"
+			]
+		},
+		{
+			"name": "Prefer vendor",
+			"files": [
+				"ART-ERP-FE/src/app/pages/PROD/order-recommendation/order-recommendation.page.html",
+				"ART-ERP-FE/src/app/pages/PROD/scenario-detail/scenario-detail.page.html"
+			]
+		},
+		{
+			"name": "Print list",
+			"files": [
+				"ART-ERP-FE/src/app/pages/POS/pos-kitchen/pos-kitchen.page.html"
+			]
+		},
+		{
+			"name": "Print OBO",
+			"files": [
+				"ART-ERP-FE/src/app/pages/POS/pos-kitchen/pos-kitchen.page.html",
+				"ART-ERP-FE/src/app/pages/POS/pos-work-order/pos-work-order.page.html"
+			]
+		},
+		{
+			"name": "Printer name",
+			"files": [
+				"ART-ERP-FE/src/app/pages/POS/pos-terminal/pos-terminal.page.html"
+			]
+		},
+		{
+			"name": "Priority",
+			"files": [
+				"ART-ERP-FE/src/app/pages/ADMIN/sync-job/sync-job.page.html"
+			]
+		},
+		{
+			"name": "Program name",
+			"files": [
+				"ART-ERP-FE/src/app/pages/PR/pr-program/pr-program.page.html"
+			]
+		},
+		{
+			"name": "Quantity received",
+			"files": [
+				"ART-ERP-FE/src/app/pages/PURCHASE/copy-from-purchase-order-to-receipt-modal/copy-from-purchase-order-to-receipt-modal.page.html"
+			]
+		},
+		{
+			"name": "Quantity remaining open",
+			"files": [
+				"ART-ERP-FE/src/app/pages/PURCHASE/copy-from-purchase-quotation-to-purchase-order-modal/copy-from-purchase-quotation-to-purchase-order-modal.page.html"
+			]
+		},
+		{
+			"name": "Quantity required",
+			"files": [
+				"ART-ERP-FE/src/app/pages/PURCHASE/copy-from-purchase-quotation-to-purchase-order-modal/copy-from-purchase-quotation-to-purchase-order-modal.page.html"
+			]
+		},
+		{
+			"name": "Quota",
+			"files": [
+				"ART-ERP-FE/src/app/pages/CRM/member-card/member-card.page.html"
+			]
+		},
+		{
+			"name": "Quoted Qty",
+			"files": [
+				"ART-ERP-FE/src/app/pages/PURCHASE/purchase-quotation-detail/purchase-quotation-items/purchase-quotation-items.component.html"
+			]
+		},
+		{
+			"name": "Rate co",
+			"files": [
+				"ART-ERP-FE/src/app/pages/HRM/insurance-policy-detail/insurance-policy-detail.page.html",
+				"ART-ERP-FE/src/app/pages/HRM/staff-contract-detail/staff-contract-detail.page.html"
+			]
+		},
+		{
+			"name": "Rate em",
+			"files": [
+				"ART-ERP-FE/src/app/pages/HRM/insurance-policy-detail/insurance-policy-detail.page.html",
+				"ART-ERP-FE/src/app/pages/HRM/staff-contract-detail/staff-contract-detail.page.html"
+			]
+		},
+		{
+			"name": "Rating",
+			"files": [
+				"ART-ERP-FE/src/app/pages/HRM/staff-detail/components/staff-personnel-profile/staff-specialized-skill/staff-specialized-skill.component.html"
+			]
+		},
+		{
+			"name": "Reading skill",
+			"files": [
+				"ART-ERP-FE/src/app/pages/HRM/staff-detail/components/staff-personnel-profile/staff-foreign-language/staff-foreign-language.component.html"
+			]
+		},
+		{
+			"name": "Recommendation calculated date",
+			"files": [
+				"ART-ERP-FE/src/app/pages/PROD/scenario/scenario.page.html"
+			]
+		},
+		{
+			"name": "Reconciliation status",
+			"files": [
+				"ART-ERP-FE/src/app/pages/ACCOUNTANT/bank-statement/bank-statement.page.html",
+				"ART-ERP-FE/src/app/pages/ACCOUNTANT/bank-transaction/bank-transaction.page.html"
+			]
+		},
+		{
+			"name": "RefChar9",
+			"files": [
+				"ART-ERP-FE/src/app/pages/ADMIN/sync-job/sync-job.page.html"
+			]
+		},
+		{
+			"name": "Reference number",
+			"files": [
+				"ART-ERP-FE/src/app/pages/ACCOUNTANT/bank-statement/bank-statement.page.html",
+				"ART-ERP-FE/src/app/pages/ACCOUNTANT/bank-transaction/bank-transaction.page.html"
+			]
+		},
+		{
+			"name": "RefId",
+			"files": [
+				"ART-ERP-FE/src/app/pages/PROD/scenario-detail/scenario-detail.page.html"
+			]
+		},
+		{
+			"name": "RefNum1",
+			"files": [
+				"ART-ERP-FE/src/app/pages/ADMIN/sync-job/sync-job.page.html"
+			]
+		},
+		{
+			"name": "Rejected quantity",
+			"files": [
+				"ART-ERP-FE/src/app/pages/PROD/production-order/production-order.page.html"
+			]
+		},
+		{
+			"name": "Remaining open",
+			"files": [
+				"ART-ERP-FE/src/app/pages/PURCHASE/purchase-quotation-detail/purchase-quotation-items/purchase-quotation-items.component.html",
+				"ART-ERP-FE/src/app/pages/PURCHASE/purchase-request-detail/purchase-items/purchase-items.component.html"
+			]
+		},
+		{
+			"name": "Replace by item",
+			"files": [
+				"ART-ERP-FE/src/app/pages/PROD/apply-items-replacement/apply-items-replacement.page.html",
+				"ART-ERP-FE/src/app/pages/PROD/item-replacement-group-detail/item-replacement-group-detail.page.html"
+			]
+		},
+		{
+			"name": "Replacement staff",
+			"files": [
+				"ART-ERP-FE/src/app/pages/HRM/staff-time-off-request/staff-time-off-request.page.html"
+			]
+		},
+		{
+			"name": "Request date",
+			"files": [
+				"ART-ERP-FE/src/app/pages/HRM/staff-time-off-request/staff-time-off-request.page.html"
+			]
+		},
+		{
+			"name": "Required Qty",
+			"files": [
+				"ART-ERP-FE/src/app/pages/PURCHASE/purchase-quotation-detail/purchase-quotation-items/purchase-quotation-items.component.html"
+			]
+		},
+		{
+			"name": "Shipped date",
+			"files": [
+				"ART-ERP-FE/src/app/pages/WMS/outbound-order-detail/outbound-order-detail.page.html",
+				"ART-ERP-FE/src/app/pages/WMS/outbound-order/outbound-order.page.html",
+				"ART-ERP-FE/src/app/pages/WMS/shipping/shipping.page.html"
+			]
+		},
+		{
+			"name": "Shipper name",
+			"files": [
+				"ART-ERP-FE/src/app/pages/WMS/outbound-order-detail/outbound-order-detail.page.html",
+				"ART-ERP-FE/src/app/pages/WMS/packing-order-detail/packing-order-detail.page.html",
+				"ART-ERP-FE/src/app/pages/WMS/packing-order/packing-order.page.html"
+			]
+		},
+		{
+			"name": "Sign date",
+			"files": [
+				"ART-ERP-FE/src/app/pages/HRM/staff-decision/staff-decision.page.html"
+			]
+		},
+		{
+			"name": "SL đ.chỉnh",
+			"files": [
+				"ART-ERP-FE/src/app/pages/PURCHASE/purchase-order-detail/purchase-order-items/purchase-order-items.component.html"
+			]
+		},
+		{
+			"name": "SO Id",
+			"files": [
+				"ART-ERP-FE/src/app/pages/ACCOUNTANT/ar-invoice/ar-invoice.page.html",
+				"ART-ERP-FE/src/app/pages/SALE/sale-order2/sale-order2.page.html"
+			]
+		},
+		{
+			"name": "Sold qty",
+			"files": [
+				"ART-ERP-FE/src/app/pages/PROD/forecast-detail/forecast-product-picker.page.html"
+			]
+		},
+		{
+			"name": "Speaking skill",
+			"files": [
+				"ART-ERP-FE/src/app/pages/HRM/staff-detail/components/staff-personnel-profile/staff-foreign-language/staff-foreign-language.component.html"
+			]
+		},
+		{
+			"name": "Sub group",
+			"files": [
+				"ART-ERP-FE/src/app/pages/HRM/udf/udf.page.html"
+			]
+		},
+		{
+			"name": "SubType",
+			"files": [
+				"ART-ERP-FE/src/app/pages/ACCOUNTANT/incoming-payment/incoming-payment.page.html",
+				"ART-ERP-FE/src/app/pages/ACCOUNTANT/outgoing-payment/outgoing-payment.page.html",
+				"ART-ERP-FE/src/app/pages/HRM/staff-agreement-detail/staff-agreement-detail.page.html"
+			]
+		},
+		{
+			"name": "System",
+			"files": [
+				"ART-ERP-FE/src/app/pages/HRM/udf/udf.page.html"
+			]
+		},
+		{
+			"name": "Số HĐ",
+			"files": [
+				"ART-ERP-FE/src/app/pages/ACCOUNTANT/ap-invoice/ap-invoice.page.html"
+			]
+		},
+		{
+			"name": "Tag",
+			"files": [
+				"ART-ERP-FE/src/app/pages/WMS/outbound-order-detail/outbound-order-detail.page.html",
+				"ART-ERP-FE/src/app/pages/WMS/outbound-order/outbound-order.page.html",
+				"ART-ERP-FE/src/app/pages/WMS/packing-order/packing-order.page.html"
+			]
+		},
+		{
+			"name": "Thu",
+			"files": [
+				"ART-ERP-FE/src/app/pages/CRM/business-partner-detail/components/bp-master-coverage-plan/bp-master-coverage-plan.component.html"
+			]
+		},
+		{
+			"name": "Time sheet",
+			"files": [
+				"ART-ERP-FE/src/app/pages/HRM/staff-payroll/staff-payroll.page.html",
+				"ART-ERP-FE/src/app/pages/HRM/timesheet-cycle/timesheet-cycle.page.html",
+				"ART-ERP-FE/src/app/pages/HRM/timesheet-record/timesheet-record.page.html"
+			]
+		},
+		{
+			"name": "Time slot",
+			"files": [
+				"ART-ERP-FE/src/app/pages/PR/pr-deal/pr-deal.page.html"
+			]
+		},
+		{
+			"name": "Tolerance days",
+			"files": [
+				"ART-ERP-FE/src/app/pages/PROD/order-recommendation/order-recommendation.page.html",
+				"ART-ERP-FE/src/app/pages/PROD/scenario-detail/scenario-detail.page.html",
+				"ART-ERP-FE/src/app/pages/PURCHASE/item-planning-data/item-planning-data.page.html",
+				"ART-ERP-FE/src/app/pages/WMS/item-detail/item-detail.page.html"
+			]
+		},
+		{
+			"name": "Total leaves",
+			"files": [
+				"ART-ERP-FE/src/app/pages/HRM/ptos-enrollment/ptos-enrollment.page.html"
+			]
+		},
+		{
+			"name": "Transaction date",
+			"files": [
+				"ART-ERP-FE/src/app/pages/ACCOUNTANT/bank-statement/bank-statement.page.html",
+				"ART-ERP-FE/src/app/pages/ACCOUNTANT/bank-transaction/bank-transaction.page.html",
+				"ART-ERP-FE/src/app/pages/WMS/transaction-modal/transaction-modal.page.html",
+				"ART-ERP-FE/src/app/pages/WMS/warehouse-transaction/warehouse-transaction.page.html"
+			]
+		},
+		{
+			"name": "Transaction status",
+			"files": [
+				"ART-ERP-FE/src/app/pages/ACCOUNTANT/bank-statement/bank-statement.page.html"
+			]
+		},
+		{
+			"name": "TryCount",
+			"files": [
+				"ART-ERP-FE/src/app/pages/ADMIN/sync-job/sync-job.page.html"
+			]
+		},
+		{
+			"name": "UDF",
+			"files": [
+				"ART-ERP-FE/src/app/pages/HRM/salary-policy-detail/salary-policy-detail.page.html"
+			]
+		},
+		{
+			"name": "Uom name",
+			"files": [
+				"ART-ERP-FE/src/app/pages/PROD/scenario-pegging-modal/scenario-pegging-modal.page.html"
+			]
+		},
+		{
+			"name": "Upload",
+			"files": [
+				"ART-ERP-FE/src/app/pages/POS/pos-menu-detail/pos-menu-detail.page.html"
+			]
+		},
+		{
+			"name": "Used",
+			"files": [
+				"ART-ERP-FE/src/app/pages/PR/pr-program-voucher/pr-program-voucher.page.html"
+			]
+		},
+		{
+			"name": "Used/Limit",
+			"files": [
+				"ART-ERP-FE/src/app/pages/PR/pr-program/pr-program.page.html"
+			]
+		},
+		{
+			"name": "User account(s)",
+			"files": [
+				"ART-ERP-FE/src/app/pages/ADMIN/user-group/user-group.page.html"
+			]
+		},
+		{
+			"name": "Version",
+			"files": [
+				"ART-ERP-FE/src/app/pages/HRM/work-rule/work-rule.page.html"
+			]
+		},
+		{
+			"name": "Violation date",
+			"files": [
+				"ART-ERP-FE/src/app/pages/HRM/work-rule-violation/work-rule-violation.page.html"
+			]
+		},
+		{
+			"name": "Volumn",
+			"files": [
+				"ART-ERP-FE/src/app/pages/WMS/outbound-order-detail/outbound-order-detail.page.html",
+				"ART-ERP-FE/src/app/pages/WMS/packing-order-detail/packing-order-detail.page.html",
+				"ART-ERP-FE/src/app/pages/WMS/packing-order/packing-order.page.html"
+			]
+		},
+		{
+			"name": "Voucher name",
+			"files": [
+				"ART-ERP-FE/src/app/pages/PR/pr-voucher-policy/pr-voucher-policy.page.html"
+			]
+		},
+		{
+			"name": "WarehouseName",
+			"files": [
+				"ART-ERP-FE/src/app/pages/WMS/shipping/shipping.page.html"
+			]
+		},
+		{
+			"name": "Weight - Volume",
+			"files": [
+				"ART-ERP-FE/src/app/pages/SHIP/shipment/shipment.page.html"
+			]
+		},
+		{
+			"name": "Workplace",
+			"files": [
+				"ART-ERP-FE/src/app/pages/HRM/staff-detail/components/staff-personnel-profile/staff-work-experience/staff-work-experience.component.html"
+			]
+		},
+		{
+			"name": "Writing skill",
+			"files": [
+				"ART-ERP-FE/src/app/pages/HRM/staff-detail/components/staff-personnel-profile/staff-foreign-language/staff-foreign-language.component.html"
+			]
+		},
+		{
+			"name": "Đề nghị",
+			"files": [
+				"ART-ERP-FE/src/app/pages/PURCHASE/purchase-order-detail/purchase-order-items/purchase-order-items.component.html"
+			]
+		}
+	],
+	"caseMismatch": [
+		{
+			"ui": "DOB",
+			"assets": "dob",
+			"files": [
+				"ART-ERP-FE/src/app/pages/HRM/staff-detail/components/staff-personnel-profile/staff-personnel-family/staff-personnel-family.component.html"
+			]
+		},
+		{
+			"ui": "remark",
+			"assets": "Remark",
+			"files": [
+				"ART-ERP-FE/src/app/pages/POS/pos-kitchen/pos-kitchen.page.html"
+			]
+		},
+		{
+			"ui": "Route sequence",
+			"assets": "Route Sequence",
+			"files": [
+				"ART-ERP-FE/src/app/pages/WMS/location/location.page.html"
+			]
+		}
+	]
+}

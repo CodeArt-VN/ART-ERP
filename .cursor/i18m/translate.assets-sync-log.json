@@ -1,0 +1,24 @@
+{
+	"totalUniqueKeys": 3096,
+	"missingVi": 0,
+	"caseDupsDropped": [
+		{
+			"keep": "Duplicates will be disabled",
+			"drop": "duplicates will be disabled"
+		}
+	],
+	"abbreviations": [
+		"abbreviation of outlet",
+		"abbreviation of storer",
+		"abbreviation of vendor",
+		"abbreviation of carrier",
+		"abbreviation of branch",
+		"abbreviation of staff"
+	],
+	"db": {
+		"created": 74,
+		"updated": 6,
+		"unchanged": 3016,
+		"failed": 0
+	}
+}

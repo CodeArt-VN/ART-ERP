@@ -1,0 +1,89 @@
+{
+	"totalUniqueKeys": 3308,
+	"datatableMissingFilled": 209,
+	"dbRestored": 61,
+	"dbCreated": 146,
+	"dbUpdated": 2,
+	"stillNeedBetterVi": [
+		"IDVendor",
+		"Insurance salary",
+		"Inventory level",
+		"IP address",
+		"Is consider existing inventory",
+		"Is consider purchase orders",
+		"Is consider purchase quotations",
+		"Is consider purchase request",
+		"Is consider sales orders",
+		"Is consider sales quotations",
+		"Is consider work orders",
+		"Is discontinued",
+		"Is display selected item only",
+		"Is expanded production order",
+		"Is expanded purchase order",
+		"Is expanded purchase quotations",
+		"Is expanded purchase request",
+		"Is expanded reserve invoice",
+		"Is expanded sales order",
+		"Is expanded sales quotations",
+		"Is expanded transfer request",
+		"Is ignore cumulative lead time",
+		"Is inventory transfer request",
+		"Is items without requirement",
+		"Is minimum inventory level",
+		"Is only nettable",
+		"Is prevent",
+		"Is recommend itrq",
+		"Is recommend production order",
+		"Is recommend purchase order",
+		"Is recommend to default warehouse",
+		"Is recurring order transactions",
+		"Is reserve invoice",
+		"Is scenario a simulation",
+		"IsActivedVersion",
+		"IsDone",
+		"IsPublished",
+		"IsRunning",
+		"Items group",
+		"Journal remark",
+		"Last execute date",
+		"levelSort",
+		"Listening skill",
+		"Log",
+		"Maximum cumulative leadTime",
+		"Member",
+		"Membership",
+		"Minimum order qty",
+		"Module",
+		"Open quantity",
+		"Orders",
+		"Owner",
+		"Penalty date",
+		"PhoneNumber",
+		"Planned quantity",
+		"Point date",
+		"Port"
+	],
+	"caseMismatchFixedInAssets": [
+		{
+			"ui": "DOB",
+			"assets": "dob",
+			"files": [
+				"ART-ERP-FE/src/app/pages/HRM/staff-detail/components/staff-personnel-profile/staff-personnel-family/staff-personnel-family.component.html"
+			]
+		},
+		{
+			"ui": "remark",
+			"assets": "Remark",
+			"files": [
+				"ART-ERP-FE/src/app/pages/POS/pos-kitchen/pos-kitchen.page.html"
+			]
+		},
+		{
+			"ui": "Route sequence",
+			"assets": "Route Sequence",
+			"files": [
+				"ART-ERP-FE/src/app/pages/WMS/location/location.page.html"
+			]
+		}
+	]
+}
