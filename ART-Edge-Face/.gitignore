@@ -1,0 +1,19 @@
+# ART-Edge-Face local artifacts
+.venv/
+venv/
+__pycache__/
+*.py[cod]
+.pytest_cache/
+*.egg-info/
+dist/
+build/
+config.json
+data/*.db
+data/gallery.json
+logs/
+models/*.onnx
+models/*.xml
+models/*.bin
+models/*.pth
+!models/README.md
+!data/gallery.example.json
