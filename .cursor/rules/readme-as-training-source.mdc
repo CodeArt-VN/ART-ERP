@@ -1,0 +1,37 @@
+---
+description: Bắt buộc đọc README làm nguồn chuẩn trước khi viết/sửa code — tránh tự viết trùng, lệch chuẩn
+alwaysApply: true
+---
+
+# README = training source (bắt buộc)
+
+Trước khi viết, sửa, hoặc refactor code: **đọc README liên quan** như tài liệu chuẩn của repo. Không đoán pattern từ kiến thức chung (Angular 20 standalone, Web API mới, v.v.).
+
+## Phải đọc gì
+
+| Khu vực làm việc | README bắt buộc |
+| --- | --- |
+| FE (`ART-ERP-FE/`) | `ART-ERP-FE/README.md` |
+| BE DMS (`ART-DMS/`) | `ART-DMS/README.md` |
+| Edge | `ART-ERP-Edge/README.md` |
+| BE ERP | `ART-ERP-BE/README.md` |
+| Cross-repo / không rõ | `README.md` (root) rồi README của package đang đụng |
+
+Nếu README trỏ tới template / sample / docs khác → đọc tiếp các file đó trước khi code.
+
+## Phải làm
+
+1. Tìm và **reuse** provider, hook, CustomAPI, component, service, script đã có — đúng tên, đúng chỗ README chỉ định.
+2. Copy recipe / template README nêu (ví dụ `_template/flat`, `BS_*` partial, `CustomApiController`).
+3. Tuân **Must / must not** trong README; README **override** generic framework advice.
+4. Với FE, khi sửa code cố gắng code xong hết rồi mới save change files để giảm thiểu số lần build lại do live reload.
+
+## Không được
+
+- Tự viết CRUD / provider / controller / page architecture song song khi README nói đã có GenCode / template.
+- Copy module README đánh dấu **không phải chuẩn** (ví dụ VMS debt) làm mẫu.
+- Bắt đầu code khi chưa đọc README của package đang sửa.
+
+## Khi README thiếu / mơ hồ
+
+Hỏi anh trước — không tự invent stack mới. Sau khi anh chốt, cập nhật README nếu cần để lần sau không lệch.
