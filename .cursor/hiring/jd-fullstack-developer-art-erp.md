@@ -4,193 +4,192 @@
 **Vị trí:** Fullstack Developer  
 **Hình thức:** [Full-time / Hybrid / Remote — điền theo thực tế]  
 **Cấp bậc:** Mid (ưu tiên) · Junior+ có mentor (xem xét)  
-**Báo cáo:** Tech Lead / PM module  
-**Cập nhật:** 2026-03-03
+**Báo cáo:** Sponsor / PM module  
+**Cập nhật:** 2026-03-03  
+
+**Đặc trưng vị trí (quan trọng):**  
+Đây là fullstack theo mô hình **FE-first + AI-assisted BE** — không phải fullstack .NET truyền thống.
+
+| Phần | Ai làm | Vai trò ứng viên |
+|------|--------|------------------|
+| **Frontend** (~85–90%) | Người | Angular/Ionic production, prototype → UAT |
+| **Backend** (~10–15%) | Cursor AI + anh | Ứng viên **đọc/gắn API**, feedback contract; **không** viết BE hàng ngày |
+| Legacy `ART-DMS` / .NET 4.x | Đang thay thế | **Không** yêu cầu |
 
 ---
 
 ## 1. Giới thiệu dự án
 
-ART-ERP là hệ thống ERP doanh nghiệp đa module (CRM, Bán hàng, POS, Kế toán, WMS, HRM, Approval…), đang mở rộng các module mới trên nền codebase production:
+ART-ERP — ERP đa module (CRM, SALE, POS, Kế toán, WMS, HRM, Approval…), mở rộng trên codebase production:
 
 | Repo | Vai trò |
 |------|---------|
-| `ART-ERP-FE` | Frontend Angular + Ionic + Capacitor |
-| `ART-DMS` | Backend API chính (.NET Framework, Web API) |
-| `ART-ERP-BE` | Backend bổ trợ |
-| `ART-ERP-MCP` | Tích hợp AI / automation |
+| `ART-ERP-FE` | Frontend chính — Angular + Ionic + Capacitor (**trọng tâm job**) |
+| `ART-ERP-BE` | Backend mới ASP.NET Core — **AI gen**, người review/gắn |
+| `ART-DMS` | Backend legacy — đang bỏ; không phải skill tuyển |
+| `ART-ERP-MCP` | AI / automation |
 
-**Đặc điểm làm việc:**
+**Cách team ship module:**
 
-- Mở rộng hệ thống **có sẵn** (không greenfield) — cần đọc hiểu legacy, additive change, feature flag.
-- Quy trình theo **gate confirm**: nghiệp vụ → forms → prototype FE → code BE/FE + unit test → UAT → go-live.
-- Domain phức tạp: CRM tiệc cưới/nhà hàng, kế toán (SAP B1-inspired), POS event day, approval workflow.
+1. Anh confirm nghiệp vụ / forms (G1–G2)  
+2. Ứng viên prototype FE (G3)  
+3. AI gen BE theo form/TC đã chốt; ứng viên gắn API + bắt lỗi UI/nghiệp vụ (G4)  
+4. UAT với anh (G5) → go-live theo lệnh anh (G6)
 
 ---
 
 ## 2. Mục tiêu tuyển dụng
 
-Tuyển dev **làm được cả BE và FE** trong một sprint/module, tự triển khai API + màn hình theo pattern ART, viết unit/API test, và phối hợp PM/UAT — **không** cần mentor full-time cho từng task FE hoặc BE.
+Tuyển **1 Fullstack Mid** đủ năng lực FE để ship màn hình ERP, đồng thời làm việc thành thạo với API do AI sinh — **end-to-end ownership phía sản phẩm** (UI + contract + UAT), không cần hire thêm BE dev.
+
+**Không** tìm người code C#/.NET Framework full-time.  
+**Có** tìm người chịu trách nhiệm “màn hình chạy được với API thật” và escalate BE đúng cách.
 
 ---
 
 ## 3. Trách nhiệm chính
 
-### Backend
+### A. Frontend (trọng tâm)
 
-- Phát triển/mở rộng REST API trên `ART-DMS` (C#, ASP.NET Web API, Entity Framework 6).
-- Thiết kế schema additive, stored procedure / query tối ưu khi cần.
-- Tích hợp module: CRM, SALE, POS, AC (kế toán), APPROVAL, BANK…
-- Bật/tắt tính năng qua **feature flag**; đảm bảo backward compatible.
-- Viết unit test / API test; hỗ trợ production issue (RCA, hotfix).
+- Màn Angular + Ionic theo pattern `PageBase` (list, detail, tree, form phức tạp).
+- Prototype mock (G3) → production gắn API (G4).
+- Reactive forms, validation cross-field, role/permission, `ngx-translate`.
+- Paging server, `trackBy`, virtual scroll khi list lớn.
+- Capacitor / mobile layout khi module cần.
+- SignalR hoặc push phía client khi có yêu cầu.
 
-### Frontend
+### B. Fullstack với AI-assisted BE (bắt buộc, nhẹ về code)
 
-- Xây dựng màn hình Angular + Ionic theo pattern `PageBase` (list, detail, tree, form phức tạp).
-- Prototype UI (G3) rồi implement production (G4) gắn API thật.
-- Xử lý auth, role, validation, i18n (`ngx-translate`), SignalR realtime khi module yêu cầu.
-- Đảm bảo responsive / Capacitor-ready nếu module dùng mobile.
+- Đọc API contract (OpenAPI / JSON) do AI gen; map TypeScript model.
+- Xử lý status/UX: 400 validation, **409 Conflict** (vd. double-book hold), 401/403.
+- Feedback BE cụ thể (thiếu field, sai status, thiếu filter) để AI/anh sửa — **không** im lặng workaround bẩn.
+- Viết test FE cho validator / flow quan trọng; hỗ trợ verify API P0 trên staging (Postman/curl/HTTP client — đủ mức dùng).
+- Hiểu feature flag: ẩn menu FE khi flag off; không gọi API chết.
 
-### Fullstack / chung
+### C. Không thuộc scope hàng ngày
 
-- Đọc hiểu plan nghiệp vụ (flow, forms, test cases) trước khi code.
-- Map test case P0 (double-book, hold/deposit, concurrent booking…) sang test tự động.
-- Review code đồng nghiệp; commit theo submodule (`ART-ERP-FE`, `ART-DMS`).
-- Tham gia UAT demo, sửa lỗi theo feedback sponsor.
+- Viết/maintain controller C#, EF, migration DB production.
+- Làm việc chuyên sâu `ART-DMS` / .NET Framework 4.x.
 
 ---
 
-## 4. Yêu cầu bắt buộc (Must-have)
+## 4. Must-have
 
 ### Kinh nghiệm
 
-- **Tối thiểu 2 năm** làm web enterprise (hoặc 1.5 năm + project ERP/CRM thực tế phức tạp).
-- Đã **ship** ít nhất 1 sản phẩm có cả API và UI do mình làm (không chỉ CRUD demo).
+- **≥ 2 năm** Angular production (hoặc 1.5 năm + app form-heavy/ERP).
+- Đã ship sản phẩm có **cả UI và tích hợp API** (fullstack theo nghĩa sản phẩm — không bắt buộc tự viết mọi API).
 
-### Backend
+### Kỹ năng
 
-| Kỹ năng | Mức yêu cầu |
-|---------|-------------|
-| C# | Thành thạo |
-| ASP.NET Web API hoặc ASP.NET Core Web API | Thành thạo ít nhất một |
-| SQL Server (hoặc Oracle/PostgreSQL + sẵn sàng chuyển) | Viết query, index, transaction |
-| REST, JWT/OAuth, DI | Đã dùng production |
-| Entity Framework (6 hoặc Core) | CRUD + migration/schema change |
-| Git | Branch, PR, submodule hoặc monorepo |
+| Kỹ năng | Mức |
+|---------|-----|
+| **Angular** 15+ (ưu tiên 17–20) | Thành thạo |
+| **TypeScript** + RxJS | `switchMap`, unsubscribe / async pipe |
+| **Reactive Forms** | Cross-field validation |
+| HTML/SCSS | Form/list enterprise, responsive |
+| REST từ FE | Interceptor, error, loading |
+| Làm việc với API có sẵn / AI gen | Đọc contract, báo lỗi rõ |
+| Git | Branch, PR |
 
-### Frontend
+### Soft
 
-| Kỹ năng | Mức yêu cầu |
-|---------|-------------|
-| **Angular** (v15+) | Component, service, routing, reactive form |
-| **TypeScript** | Type-safe, RxJS cơ bản |
-| HTML/CSS/SCSS | Layout form/list enterprise |
-| Gọi REST API từ FE | Interceptor, error handling |
-
-### Tư duy
-
-- Đọc code người khác, sửa legacy **không phá** hành vi cũ.
-- Viết test cho logic nghiệp vụ quan trọng (không chỉ happy path).
-- Giao tiếp tiếng Việt tốt; tiếng Anh đọc tài liệu kỹ thuật.
+- Chấp nhận mô hình **AI viết BE, người ship FE + UAT**.  
+- Tiếng Việt tốt; đọc doc Angular tiếng Anh.
 
 ---
 
-## 5. Yêu cầu ưu tiên (Strong plus)
+## 5. Strong plus
 
-- **Ionic** (v7/v8) — list/detail mobile, modal, popover.
-- **.NET Framework 4.x** + EF6 (ART-DMS đang dùng .NET Framework 4.7.2).
-- Kinh nghiệm **ERP / CRM / POS / Kế toán** — hiểu flow bán hàng, hợp đồng, cọc, invoice.
-- **SignalR**, Firebase push, Capacitor.
-- Feature flag, staging/prod rollout, additive DB migration.
-- n8n / workflow automation / tích hợp LLM (module AI Sales).
-- Đã làm việc với submodule Git hoặc multi-repo.
+- **Ionic** 7/8.  
+- ERP / CRM / admin multi-role.  
+- Pattern base page (`preLoadData`, paging…).  
+- Đã dùng Cursor/Copilot — review code/API AI gen.  
+- Biết đọc sơ ASP.NET Core / JSON schema (không cần code C#).  
+- SignalR client, Capacitor, `ngx-translate`.
 
 ---
 
 ## 6. Nice to have
 
-- SAP Business One hoặc hệ kế toán VN (MISA, Fast…).
-- Jasmine/Karma hoặc Jest cho FE; NUnit/xUnit cho BE.
-- Docker, CI/CD (GitHub Actions, GitLab CI).
-- FullCalendar, gridster, báo cáo/dashboard.
+- Viết được snippet API đơn giản (bất kỳ stack) khi AI blocker — **không** phải .NET 4.x.  
+- Jasmine/Karma, CI chạy FE.  
+- FullCalendar, gridster.
 
 ---
 
 ## 7. Không phù hợp nếu
 
-- Chỉ có backend .NET, **chưa từng** làm Angular/TypeScript production.
-- Chỉ có React/Vue, chưa Angular — cần thời gian ramp-up ≥ 2 tháng (chỉ xem xét nếu BE rất mạnh).
-- Chỉ làm CRUD template, chưa gặp form nhiều role / approval / concurrent transaction.
-- Không chấp nhận quy trình gate confirm (prototype trước, code sau).
+- FE chỉ HTML/JS basic, chưa Angular production.  
+- Chỉ React/Vue, chưa Angular (ramp dài — không ưu tiên).  
+- Chỉ muốn làm BE .NET; từ chối gắn API người/AI khác viết.  
+- Expect fullstack = 50% C# + 50% Angular trên ART-DMS.  
+- Không chấp nhận gate confirm (G1–G3 trước code production).
 
 ---
 
-## 8. Tech stack tham chiếu (đối chiếu CV)
+## 8. Tech stack
 
 ```
-Frontend:  Angular 20 · Ionic 8 · TypeScript 5.8 · Capacitor 8 · RxJS · ngx-translate · SignalR
-Backend:   C# · .NET Framework 4.7.2 · ASP.NET Web API · Entity Framework 6 · SQL Server
-Mobile:    Capacitor (iOS/Android) · Firebase push
-Process:   Feature flag · Unit/API test · Gate G1–G6 · Git submodule
+FE (core):   Angular 20 · Ionic 8 · TypeScript 5.8 · Capacitor · RxJS · ngx-translate · SignalR
+BE (AI):     ART-ERP-BE — ASP.NET Core — ứng viên consume + feedback
+Legacy:      ART-DMS — đang thay thế — không yêu cầu
+Process:     Gate G1–G6 · Feature flag · Git submodule ART-ERP-FE
 ```
 
 ---
 
-## 9. Mẫu đánh giá nhanh CV (screening 5 phút)
+## 9. Screening CV 5 phút
 
 | Tiêu chí | Pass | Fail |
 |----------|------|------|
-| Angular + TypeScript production | Có project/job rõ ràng | Chỉ HTML/JS basic |
-| C# Web API production | ≥ 1 năm | Chỉ console/winform |
-| SQL / DB | Tối ưu query hoặc schema design | Chỉ SELECT đơn giản |
-| ERP/enterprise | CRM, booking, accounting, inventory… | Chỉ todo/blog app |
-| Legacy / maintain | Refactor, production support | Chỉ project mới 100% |
+| Angular production | Có version + project | Không / chỉ tutorial |
+| UI + gọi API thật | Có | Chỉ UI tĩnh / chỉ BE |
+| Form phức tạp / admin | Có | Chỉ landing |
+| Ionic | Plus | Không bắt buộc nếu Angular mạnh |
+| .NET / C# sâu | **Không cần** | Đừng loại vì thiếu |
+| “Fullstack” trên CV nhưng FE basic | Cân nhắc kỹ | Thường **fail** vị trí này |
 
-**Quy tắc thumb:** thiếu **Angular production** → loại khỏi fullstack; chuyển sang track **Backend-only** nếu BE mạnh.
-
----
-
-## 10. Quy trình tuyển dụng đề xuất
-
-1. **Screen CV** (HR + Tech lead 15 phút) — bảng mục 9.
-2. **Phỏng vấn kỹ thuật** (60–90 phút) — xem file `phong-van-ky-thuat-fullstack-art-erp.md`.
-3. **Bài thực hành** (optional, 2–4 giờ): mini module CRM Hold hoặc fix bug có sẵn trong repo sandbox.
-4. **Vòng culture / PM** (30 phút): làm việc theo gate, ước lượng task, giao tiếp blocker.
-5. **Offer** — level Mid hoặc Junior+ kèm mentor 3 tháng.
+**Thumb rule:** Angular yếu → loại. Thiếu .NET → vẫn pass.
 
 ---
 
-## 11. Mức lương / level (placeholder — PM điền)
+## 10. Quy trình tuyển
 
-| Level | Điều kiện | Ghi chú |
-|-------|-----------|---------|
-| **Junior+** | 1–2 năm, Angular cơ bản, BE ok | Bắt buộc mentor FE |
-| **Mid** | 2–4 năm, Angular + .NET production | Target cho fullstack ART-ERP |
-| **Senior** | 4+ năm, ERP domain + lead nhỏ | Review arch, không chỉ code |
+1. Screen CV (mục 9).  
+2. PV kỹ thuật — `phong-van-ky-thuat-fullstack-art-erp.md` (FE nặng + API/AI).  
+3. Take-home: list + form + xử lý 409 (mock API).  
+4. Culture: làm việc với AI BE, UAT với anh.  
+5. Offer Mid Fullstack (FE-first) hoặc Junior+ + mentor.
+
+---
+
+## 11. Level (placeholder lương)
+
+| Level | Điều kiện |
+|-------|-----------|
+| Junior+ | Angular 1–2 năm, form cơ bản | Mentor pattern ART |
+| **Mid** | Angular 2–4 năm, ship UI+API | **Target** |
+| Senior FE-leaning | Lead UI ERP + review AI output | Ít cần |
 
 ---
 
 ## 12. Quyền lợi (placeholder)
 
-- [Lương gross / thưởng / BHXH]
-- [Hybrid / remote ngày]
-- [Laptop / màn hình]
-- [Ngân sách học Angular/Ionic nếu Junior+]
+- [Lương / thưởng / BHXH] · [Hybrid/remote] · [Laptop]
 
 ---
 
-## 13. Cách ứng tuyển
+## 13. Ứng tuyển
 
-Gửi email **[email HR]** với tiêu đề: `[ART-ERP] Fullstack Developer — Họ tên`
+**[email HR]** — `[ART-ERP] Fullstack Developer — Họ tên`
 
-**Đính kèm:**
+Trả lời ngắn kèm CV:
 
-1. CV (PDF) — **ghi rõ** project Angular + .NET, vai trò cá nhân, link GitHub nếu có.
-2. Trả lời ngắn 3 câu:
-   - Module ERP/CRM nào anh/chị đã làm? Vai trò BE hay FE?
-   - Angular version đã dùng? Có Ionic không?
-   - Có kinh nghiệm .NET Framework (EF6) hay chỉ .NET Core?
+1. Angular version production? Có Ionic không?  
+2. Project nào anh/chị **tự gắn UI với API** (kể cả API người khác viết)?  
+3. Sẵn sàng mô hình AI gen BE + người ship FE/UAT không?
 
 ---
 
-*Tài liệu nội bộ — đối chiếu stack từ repo `ART-ERP` (submodules FE/DMS) và plan CRM/AC.*
+*Nội bộ — Fullstack FE-first, AI-assisted BE. Không tuyển .NET Framework/DMS.*
