@@ -1,0 +1,28 @@
+---
+description: ART-DMS CRUD is generated from EDMX. Customize with partial hooks and CustomAPI. Do not hand-edit generated files or copy VMS.
+globs: ART-DMS/**/*.cs,ART-DMS/**/*.csproj,ART-DMS/**/*.edmx
+alwaysApply: false
+---
+
+# ART-DMS GenCode
+
+ASP.NET Web API 2, .NET Framework 4.7.2, EF6 database-first. Do not invent a second CRUD stack.
+
+Stored procedure calls: rule `stored-procedure-api`. New hook, CustomAPI, or table: skill `new-be-custom-api`.
+
+## Must
+
+- Standard REST for an EDMX table is already generated. Change behavior with `public static partial class BS_{Name}` in `ClassLibrary/CustomBusiness/{MODULE}/BS_{Name}.cs`.
+- Extra DTO fields: `partial class DTO_{Name}` under `ClassLibrary/CustomDTO/`.
+- Extra HTTP that is not that table's CRUD: `API/Controllers/CustomAPI/{MODULE}/`, namespace `API.Controllers.V1`, inherit `CustomApiController`, prefix `api/v1/{Module}/{Resource}`. Register the file in `API/API.csproj`.
+- Put business logic in `BS_*`. The controller parses the request and returns the result.
+- After code changes, build with `./scripts/build-dms.sh` from `ART-DMS` (Parallels VM Win11). Do not run MSBuild on macOS.
+
+## Must not
+
+- Do not hand-edit `ClassLibrary/tbl_*.cs`, `ClassLibrary/Model.Context.cs`, or `API/Controllers/APIControllers.cs`. GenCode overwrites them.
+- Do not add a controller that repeats GET/POST/PUT/DELETE for a table that already has `{Name}Controller`.
+- Do not copy `get` / `put` / `post` / `_queryBuilder` into CustomBusiness. Call them, or replace one action with `getCustom` / `putCustom` / `postCustom`.
+- Do not copy `CustomBusiness/VMS/` or `CustomAPI/VMS/` as a skeleton.
+- Do not put secrets on list/get. Mask them in `getCustom` / `getAnItemCustom`.
+- Do not add `BS_*.cs` at the CustomBusiness root, drop the `BS_` prefix, or use kebab-case file names.

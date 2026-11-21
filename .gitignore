@@ -1,1 +1,7 @@
 .DS_Store
+
+# Bizfly sync preview samples (PII)
+tools/bizfly-sync-preview/
+.env
+tools
+.cursor/mcp.json

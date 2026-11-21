@@ -1,0 +1,36 @@
+---
+description: Start and keep one local BE (port 54009) and one FE (port 8100). Do not build .NET on macOS or start a second process.
+alwaysApply: true
+---
+
+# Run local ART-ERP
+
+BE is `ART-DMS` (ASP.NET Web API 2). FE is `ART-ERP-FE` (Ionic + Angular). `ART-ERP-BE/` is not the API.
+
+One-time VM setup (urlacl, `applicationhost.config`, VS 18): `ART-DMS/README.md` section "Build and run".
+
+## Must
+
+- Run from the Mac host. The repo stays under `$HOME`.
+- Check the port before starting. If it already responds, leave that process alone.
+- BE runs in Parallels VM **Win11** (bridged). From the Mac, health-check and login use **`http://192.168.1.99:54009/`** — not `localhost:54009` (Mac localhost is not the VM).
+- BE: `cd ART-DMS && ./scripts/run-dms.sh` (port **54009** in the VM). Build only: `./scripts/build-dms.sh`. Start without rebuild: `NO_BUILD=1 ./scripts/run-dms.sh`.
+- FE: `cd ART-ERP-FE && ionic serve` (port **8100** on the Mac). `npm install` only when `node_modules` is missing or `package.json` changed.
+- After BE edits that must be live: `./scripts/build-dms.sh`, then `NO_BUILD=1 ./scripts/run-dms.sh` only if the API was stopped.
+- Login against **Local server** `http://192.168.1.99:54009/`. Do not edit `ART-ERP-FE/src/environments/environment.ts` just to start the apps.
+
+## Must not
+
+- Do not run MSBuild, `dotnet`, or IIS Express on macOS. Build and the site run in Parallels VM **Win11**.
+- Do not treat Mac `http://localhost:54009/` as BE up/down. That URL does not reach the bridged VM.
+- Do not call `run-dms.sh` when `http://192.168.1.99:54009/` already responds. That script kills IIS Express.
+- Do not start FE with `npm start`, `ng serve`, or `npm run dev`.
+- Do not open a second terminal for an app that is already listening.
+- Do not ask the user to click Run in Visual Studio when these scripts succeed.
+
+```bash
+curl -s -o /dev/null -w '%{http_code}\n' --max-time 3 http://192.168.1.99:54009/
+curl -s -o /dev/null -w '%{http_code}\n' --max-time 3 http://localhost:8100/
+```
+
+Any HTTP status on `192.168.1.99:54009` means BE is up. `200` on Mac `8100` means FE is up.

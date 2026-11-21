@@ -1,0 +1,30 @@
+---
+description: ART-ERP-FE is Ionic Angular 20 with NgModules. Do not apply standalone, signals, or a second CRUD stack.
+globs: ART-ERP-FE/**/*.ts,ART-ERP-FE/**/*.html,ART-ERP-FE/**/*.scss
+alwaysApply: false
+---
+
+# ART-ERP-FE NgModule
+
+This repo overrides generic Angular 20. Standalone, signals, `@if` / `@for`, `inject()`-only, and OnPush-by-default do not apply unless the file already uses them.
+
+New list/detail page: skill `new-fe-crud-page`. UI strings: skill `i18n-keys`.
+
+## Must
+
+- `standalone: false` on every `@Component`, `@Directive`, and `@NgModule`.
+- Extend `PageBase`. Use the same public inject names. The CRUD provider property is `pageProvider`.
+- Copy `_template/flat` + `flat-detail`, or `pages/WMS/zone`. Do not copy `pages/VMS/` or `services/vms/`.
+- Lazy-load with `loadChildren` + `XxxPageModule`. Register the route in the domain `routing.module.ts` and spread that array in `app-routing.module.ts`. `SYS_Form.Code` equals the route path.
+- Import `ShareModule`. Detail modules also import `ReactiveFormsModule`.
+- Selector `app-kebab-case`. Class suffix `Page` or `Component`.
+- List UI is `app-data-table`. Detail inputs use `app-form-control`. Templates keep `*ngIf` / `*ngFor`.
+- UI strings: `'English key' | translate`. Prettier: tabs, printWidth 180, single quotes, semicolons.
+- After logic changes, add or update a colocated `*.spec.ts` and run it.
+
+## Must not
+
+- Do not edit GenCode output: `services/static/services.service.ts`, `services/static/api-list.ts`, `models/model-list-interface.ts`. Extra endpoints go on the existing `APIList` key in `global-variable.ts`, or in a new file under `services/` or `pages/`.
+- Do not rewrite `page-base.ts`, `app.module.ts`, or `share.module.ts`.
+- Do not call `HttpClient` from a page. Do not name the list provider anything other than `pageProvider`.
+- Do not convert an NgModule page to standalone, signals, OnPush, native control flow, or `input()` / `output()`.

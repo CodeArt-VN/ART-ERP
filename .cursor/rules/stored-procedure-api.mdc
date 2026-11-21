@@ -1,0 +1,56 @@
+---
+description: Quy tắc gọi stored procedure và custom API trả dữ liệu SQL — tránh lỗi param/type/response
+globs: ART-DMS/API/Controllers/CustomAPI/**/*.cs,ART-DMS/ClassLibrary/CustomBusiness/**/*.cs
+alwaysApply: false
+---
+
+# Stored Procedure & Custom API
+
+Áp dụng khi thêm/sửa API gọi `erp_*` / `proc_*` hoặc trả kết quả SQL.
+
+## Trước khi code
+
+1. Lấy **đúng tên và kiểu** param từ SP (`sp_helptext`, SSMS, script DB) — không đoán.
+2. Query string API dùng **cùng tên** với SP param (`IgnoredConfigs`, không `ignoredConfigs`).
+3. Xác nhận **schema result set** trước khi chọn kiểu trả về.
+
+## Gọi SP — bắt buộc
+
+```csharp
+// ❌ BAD — bind theo vị trí, dễ gán nhầm nvarchar vào int
+cmd.CommandText = "EXEC dbo.erp_X @Code, @IgnoredConfigs, @RequiredConfigs";
+
+// ❌ BAD — SqlQuery<DTO> khi chưa biết SP trả cột gì
+db.Database.SqlQuery<DTO_SYS_Config>(sql, parameters);
+
+// ✅ GOOD — StoredProcedure + param theo tên + SqlDbType rõ
+using (var cmd = new SqlCommand("dbo.erp_SYS_ConfigByProvider", (SqlConnection)conn))
+{
+    cmd.CommandType = CommandType.StoredProcedure;
+    cmd.Parameters.Add(new SqlParameter("@Code", SqlDbType.NVarChar, -1) { Value = (object)code ?? DBNull.Value });
+    cmd.Parameters.Add(new SqlParameter("@IgnoredConfigs", SqlDbType.NVarChar, -1) { Value = ... });
+}
+```
+
+- Dùng `SqlConnection` + `CommandType.StoredProcedure`, không `EXEC a, b, c` positional.
+- Chuỗi optional: `DBNull.Value`, không `""` nếu SP không chấp nhận empty string.
+- Giữ connection state: mở/đóng trong `try/finally` như `BS_SYS_Schema.GetDataTable`.
+
+## Trả về client
+
+- **SQL trả gì → client nhận vậy.** Không transform `Value`, không gọi `getConfigValueString`, không strip JSON.
+- SP có cột động / JSON → trả `dynamic` (`DataTable` hoặc `List<ExpandoObject>`), không map DTO cứng.
+- Chỉ tạo DTO khi đã có **đủ cột** từ SP và map 1:1.
+
+## Controller
+
+- Logic gọi SP nằm `BS_*`, controller chỉ parse query + `return Ok(result)`.
+- Không post-process result trong controller.
+
+## Checklist nhanh
+
+- [ ] Param name khớp SP (PascalCase)
+- [ ] `CommandType.StoredProcedure`, không positional EXEC
+- [ ] `SqlDbType` đúng kiểu
+- [ ] Không map/transform result khi chưa có schema
+- [ ] Optional param → `DBNull.Value`
